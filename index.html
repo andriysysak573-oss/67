@@ -1,955 +1,920 @@
 <!DOCTYPE html>
-<html lang="uk" class="dark">
+<html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Chicken Road 2 Deluxe Unlimited</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Fredoka', 'sans-serif']
-                    },
-                    colors: {
-                        gameBg: '#07080a',
-                        panelBg: '#121319',
-                        cardBg: '#1c1e27',
-                        accentGold: '#fbbf24',
-                        accentGreen: '#10b981',
-                        accentRed: '#f43f5e'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        * {
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-user-select: none;
-            touch-action: manipulation;
-        }
-        body {
-            background-color: #050608;
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Chicken Road 2 Deluxe - Ultra Edition</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: #0d1117;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 20px;
+    }
+    header {
+      width: 100%;
+      max-width: 800px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #161b22;
+      border-bottom: 2px solid #30363d;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      font-size: 28px;
+      background: #f1c40f;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(241, 196, 15, 0.4);
+    }
+    .logo-text h1 {
+      font-size: 18px;
+      font-weight: 900;
+      color: #f39c12;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .logo-text span {
+      font-size: 11px;
+      color: #8b949e;
+      display: block;
+      margin-top: -2px;
+    }
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .balance-badge {
+      background: #21262d;
+      border: 1px solid #30363d;
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: #2ecc71;
+      font-size: 14px;
+    }
+    .admin-btn {
+      background: #34495e;
+      border: 1px solid #5d6d7e;
+      color: #ecf0f1;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .admin-btn:hover {
+      background: #2c3e50;
+      border-color: #f39c12;
+      color: #f39c12;
+    }
+    #game-container {
+      width: 100%;
+      max-width: 800px;
+      position: relative;
+      margin-top: 10px;
+      background: #1a252f;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      border: 1px solid #30363d;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 380px;
+      background: #2c3e50;
+    }
+    .controls-panel {
+      width: 100%;
+      max-width: 800px;
+      background: #161b22;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 12px;
+      border: 1px solid #30363d;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .bet-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .bet-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #8b949e;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .bet-input-wrapper {
+      display: flex;
+      gap: 8px;
+    }
+    .bet-input {
+      flex: 1;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      outline: none;
+    }
+    .bet-input:focus {
+      border-color: #3498db;
+    }
+    .bet-presets {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+    }
+    .btn-preset {
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+      padding: 8px 0;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .btn-preset:hover {
+      background: #30363d;
+      color: #fff;
+    }
+    .difficulty-select {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      outline: none;
+      width: 100%;
+    }
+    .action-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .btn-main {
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.15s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .btn-start {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+      color: #fff;
+      grid-column: span 2;
+    }
+    .btn-start:hover { background: linear-gradient(135deg, #f1c40f, #f39c12); }
+    .btn-step {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: #fff;
+    }
+    .btn-step:hover { background: linear-gradient(135deg, #5dedc7, #3498db); }
+    .btn-cashout {
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: #fff;
+    }
+    .btn-cashout:hover { background: linear-gradient(135deg, #40d47e, #2ecc71); }
+    .btn-main:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      filter: grayscale(80%);
+    }
 
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #090a0f;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #252836;
-            border-radius: 5px;
-        }
+    /* Modal Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      backdrop-filter: blur(4px);
+    }
+    .modal-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 14px;
+      padding: 24px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #f39c12;
+      text-align: center;
+    }
+    .modal-input {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+    }
+    .modal-btns {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-modal {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-modal-confirm { background: #2ecc71; color: #fff; }
+    .btn-modal-close { background: #e74c3c; color: #fff; }
 
-        .glow-gold {
-            box-shadow: 0 0 25px rgba(251, 191, 36, 0.45);
-        }
-        .glow-green {
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.55);
-        }
-        .glow-red {
-            box-shadow: 0 0 25px rgba(244, 63, 94, 0.45);
-        }
-
-        .shake {
-            animation: shake 0.45s cubic-bezier(.36,.07,.19,.97) both;
-        }
-        @keyframes shake {
-            10%, 90% { transform: translate3d(-3px, 0, 0); }
-            20%, 80% { transform: translate3d(5px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-7px, 0, 0); }
-            40%, 60% { transform: translate3d(7px, 0, 0); }
-        }
-
-        .canvas-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: radial-gradient(circle at center, #151d2a 0%, #08090d 100%);
-        }
-
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-
-        .btn-pulse {
-            animation: pulse-glow 1.8s infinite;
-        }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
-            50% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.8); }
-        }
-    </style>
+    /* Recovery Mini-Game Overlay */
+    #miner-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(13, 17, 23, 0.95);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 50;
+      padding: 20px;
+      text-align: center;
+    }
+    .miner-title { font-size: 22px; font-weight: 900; color: #f1c40f; }
+    .miner-desc { font-size: 13px; color: #8b949e; max-width: 80%; }
+    .btn-mine {
+      background: linear-gradient(135deg, #e67e22, #d35400);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 900;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(230, 126, 34, 0.5);
+      transition: transform 0.1s;
+    }
+    .btn-mine:active { transform: scale(0.95); }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between items-center bg-[#050608]">
+<body>
 
-    <!-- Головний оболонка симулятора -->
-    <div id="gameWrapper" class="w-full max-w-md sm:max-w-xl min-h-screen flex flex-col bg-[#090a0f] shadow-2xl relative border-x border-slate-800/80">
-        
-        <!-- Шапка гри з балансом -->
-        <header class="w-full bg-[#10121a] px-4 py-3 flex items-center justify-between border-b border-slate-800/80 z-30 shadow-md">
-            <div class="flex items-center gap-2.5">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 font-black flex items-center justify-center text-2xl shadow-lg shadow-amber-500/25">
-                    🐔
-                </div>
-                <div>
-                    <span class="text-xl font-black font-display tracking-tight bg-gradient-to-r from-white via-slate-100 to-amber-300 bg-clip-text text-transparent block leading-none">
-                        CHICKEN<span class="text-amber-400">2</span>ROAD
-                    </span>
-                    <span class="text-[9px] font-black tracking-widest text-emerald-400 uppercase">СИМУЛЯТОР ДЕМО 2.0</span>
-                </div>
-            </div>
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">🐔</div>
+      <div class="logo-text">
+        <h1>Chicken Road 2</h1>
+        <span>Ultra Deluxe Simulator</span>
+      </div>
+    </div>
+    <div class="top-controls">
+      <div class="balance-badge">
+        <span>$</span><span id="ui-balance">1,000,000,000</span>
+      </div>
+      <button class="admin-btn" id="btn-open-admin">⚙️ Адмін</button>
+    </div>
+  </header>
 
-            <!-- Баланс -->
-            <div class="flex items-center bg-[#181a24] border border-amber-500/40 rounded-2xl px-3.5 py-1.5 shadow-inner">
-                <div class="flex flex-col text-right mr-2">
-                    <span class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider">Віртуальний баланс</span>
-                    <span id="balanceDisplay" class="font-black text-white text-base tracking-wide">$1,000,000,000</span>
-                </div>
-                <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 font-black text-xs flex items-center justify-center shadow-md">
-                    $
-                </div>
-            </div>
+  <div id="game-container">
+    <canvas id="gameCanvas" width="800" height="380"></canvas>
+    <div id="miner-overlay">
+      <div class="miner-title">⛏️ ЗОЛОТА ШАХТА</div>
+      <div class="miner-desc">Твій баланс дорівнює $0. Видобувай золотисті фішки, щоб відновити банкрол!</div>
+      <button class="btn-mine" id="btn-mine-gold">ВИДОБУТИ $5,000,000 ⛏️</button>
+      <div id="miner-status" style="font-size: 14px; font-weight: 700; color: #2ecc71;"></div>
+    </div>
+  </div>
 
-            <!-- Кнопки звуку та шахти -->
-            <div class="flex items-center gap-1.5">
-                <button id="soundToggleBtn" onclick="toggleAudio()" class="w-9 h-9 rounded-xl bg-[#181a24] border border-slate-700/60 text-slate-300 hover:text-white flex items-center justify-center text-xs transition-all">
-                    <i class="fa-solid fa-volume-high"></i>
-                </button>
-                <button onclick="openMineModal()" class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/50 text-amber-400 hover:bg-amber-500/25 flex items-center justify-center text-sm transition-all shadow-sm" title="Золота Шахта">
-                    ⛏️
-                </button>
-            </div>
-        </header>
-
-        <!-- Інформаційна панель результатів онлайн -->
-        <div class="w-full bg-[#0c0d13] px-4 py-2 flex justify-between items-center text-[11px] border-b border-slate-800/50 text-slate-400 z-20">
-            <div class="flex items-center gap-1.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
-                <span>Гравців: <b id="onlineCounter" class="text-slate-200 font-bold">14 210</b></span>
-            </div>
-            <div id="liveTicker" class="truncate max-w-[240px] text-right font-semibold text-emerald-400">
-                <span class="text-slate-400">Останній виграш:</span> Гравець_UA <span class="text-emerald-400 font-bold">+$120,500.00</span>
-            </div>
-        </div>
-
-        <!-- Поле Canvas (Горизонтальний рух зліва направо) -->
-        <div class="flex-1 relative w-full min-h-[380px] sm:min-h-[440px] canvas-container flex flex-col justify-center items-center">
-            <canvas id="gameCanvas" class="w-full h-full block cursor-pointer"></canvas>
-
-            <!-- Результат раунду overlay -->
-            <div id="statusOverlay" class="absolute inset-0 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none z-30">
-                <div id="statusBox" class="bg-[#181a24] border border-slate-700/80 p-6 rounded-3xl text-center max-w-xs shadow-2xl transform scale-90 transition-all w-full">
-                    <div id="statusEmoji" class="text-6xl mb-3 animate-bounce">💥</div>
-                    <h3 id="statusTitle" class="text-2xl font-black text-white mb-1">АВАРІЯ!</h3>
-                    <p id="statusDesc" class="text-xs text-slate-300 mb-5">Курка потрапила під авто.</p>
-                    <button onclick="dismissStatusOverlay()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wide transition-all shadow-lg glow-green">
-                        ПРОДОВЖИТИ
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Панель ставок та управління -->
-        <div class="w-full bg-[#10121a] p-4 border-t border-slate-800/80 z-20 space-y-3 shadow-2xl">
-            
-            <!-- Поле вводу суми ставки -->
-            <div class="space-y-1.5">
-                <div class="flex items-center justify-between text-xs text-slate-400 px-1 font-bold">
-                    <span>СУМА СТАВКИ ($)</span>
-                    <span id="betValueFormatted" class="text-amber-400 font-black">$200</span>
-                </div>
-                <div class="bg-[#181a24] border border-slate-700/60 rounded-2xl p-1.5 flex items-center justify-between shadow-inner">
-                    <button onclick="setBetMin()" class="bg-[#242735] hover:bg-[#2e3244] active:scale-95 text-slate-300 font-black text-xs px-3.5 py-2.5 rounded-xl transition-all">
-                        МНІ
-                    </button>
-                    
-                    <div class="flex-1 px-2 text-center">
-                        <input type="number" id="betInput" value="200" oninput="onBetInputChange()" class="w-full bg-transparent text-center font-black text-white text-xl focus:outline-none" placeholder="200">
-                    </div>
-
-                    <button onclick="setBetMax()" class="bg-[#242735] hover:bg-[#2e3244] active:scale-95 text-amber-400 font-black text-xs px-3.5 py-2.5 rounded-xl transition-all">
-                        МАКС
-                    </button>
-                </div>
-            </div>
-
-            <!-- Швидкі кнопки розрахунку суми -->
-            <div class="grid grid-cols-5 gap-1.5">
-                <button onclick="multiplyBet(0.5)" class="bg-[#181a24] hover:bg-[#222533] active:scale-95 text-slate-300 font-black text-xs py-2 rounded-xl border border-slate-700/40">
-                    ½
-                </button>
-                <button onclick="multiplyBet(2)" class="bg-[#181a24] hover:bg-[#222533] active:scale-95 text-slate-300 font-black text-xs py-2 rounded-xl border border-slate-700/40">
-                    2x
-                </button>
-                <button onclick="multiplyBet(10)" class="bg-[#181a24] hover:bg-[#222533] active:scale-95 text-slate-300 font-black text-xs py-2 rounded-xl border border-slate-700/40">
-                    10x
-                </button>
-                <button onclick="addPresetBet(1000000)" class="bg-[#181a24] hover:bg-[#222533] active:scale-95 text-cyan-400 font-black text-xs py-2 rounded-xl border border-slate-700/40">
-                    +1M
-                </button>
-                <button onclick="addPresetBet(1000000000)" class="bg-[#181a24] hover:bg-[#222533] active:scale-95 text-amber-400 font-black text-xs py-2 rounded-xl border border-slate-700/40">
-                    +1B
-                </button>
-            </div>
-
-            <!-- Рівень складності -->
-            <div class="relative">
-                <select id="diffSelect" onchange="changeDifficulty(this.value)" class="w-full bg-[#181a24] border border-slate-700/60 rounded-2xl py-3 px-4 text-white font-black text-sm appearance-none focus:outline-none cursor-pointer">
-                    <option value="easy">🌱 Easy (Легкий трафік, малий ризик)</option>
-                    <option value="medium">⚡ Medium (Баланс трафіку та коефіцієнтів)</option>
-                    <option value="hard" selected>🔥 Hard (Висока швидкість авто)</option>
-                    <option value="hardcore">💀 Hardcore (Екстремальний потік авто)</option>
-                </select>
-                <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                    <i class="fa-solid fa-chevron-down text-xs"></i>
-                </div>
-            </div>
-
-            <!-- Головні кнопки гри -->
-            <div class="space-y-2">
-                <!-- Старт -->
-                <button id="startGameBtn" onclick="startGame()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-300 hover:from-amber-400 hover:to-yellow-200 active:scale-[0.98] text-slate-950 font-black text-2xl tracking-wide shadow-xl shadow-amber-500/25 transition-all flex items-center justify-center gap-2 glow-gold">
-                    ПОЧАТИ ГРУ
-                </button>
-
-                <!-- Зробити крок -->
-                <button id="stepBtn" onclick="makeStep()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 active:scale-[0.98] text-white font-black text-2xl tracking-wide shadow-xl shadow-cyan-500/25 transition-all hidden flex items-center justify-center gap-2">
-                    ЗРОБИТИ КРОК 🐾
-                </button>
-
-                <!-- Окрема зелена кнопка Cash Out -->
-                <button id="cashoutButton" onclick="cashOut()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-300 hover:from-emerald-400 hover:to-teal-200 active:scale-[0.98] text-slate-950 font-black text-2xl tracking-wide shadow-xl shadow-emerald-500/30 transition-all hidden flex items-center justify-center gap-2 glow-green btn-pulse">
-                    <span id="cashoutBtnText">ЗАБРАТИ СТАВКУ ($0)</span>
-                </button>
-            </div>
-        </div>
+  <div class="controls-panel">
+    <div class="bet-section">
+      <div class="bet-header">
+        <span>Розмір ставки ($)</span>
+        <span id="ui-current-mult">Множник: 1.00x</span>
+      </div>
+      <div class="bet-input-wrapper">
+        <input type="text" id="bet-input" class="bet-input" value="1000">
+        <select id="difficulty-select" class="difficulty-select" style="width: 150px;">
+          <option value="easy">Легкий</option>
+          <option value="medium" selected>Середній</option>
+          <option value="hard">Важкий</option>
+          <option value="hardcore">Хардкор 💀</option>
+        </select>
+      </div>
+      <div class="bet-presets">
+        <button class="btn-preset" data-preset="min">МИН</button>
+        <button class="btn-preset" data-preset="half">1/2</button>
+        <button class="btn-preset" data-preset="2x">2x</button>
+        <button class="btn-preset" data-preset="10x">10x</button>
+        <button class="btn-preset" data-preset="1m">+1M</button>
+        <button class="btn-preset" data-preset="max">МАКС</button>
+      </div>
     </div>
 
-    <!-- Модальне вікно Міні-гри "Золота Шахта" -->
-    <div id="bankruptModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="bg-[#181a24] border border-amber-500/50 max-w-sm w-full rounded-3xl p-6 text-center space-y-4 shadow-2xl">
-            <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border-2 border-amber-500 text-amber-400 text-3xl flex items-center justify-center mx-auto animate-pulse shadow-lg glow-gold">
-                ⛏️
-            </div>
-            <div>
-                <h3 class="text-2xl font-black text-white">ЗОЛОТА ШАХТА</h3>
-                <p class="text-xs text-slate-300 mt-1">Ви втратили весь капітал! Натискайте на кам'яну породу, щоб видобути новий баланс.</p>
-            </div>
-
-            <div id="mineTarget" onclick="tapMineGold(event)" class="bg-[#0f1017] border-2 border-dashed border-amber-500/70 hover:border-amber-400 rounded-3xl p-8 cursor-pointer active:scale-95 transition-all group relative overflow-hidden">
-                <div id="mineIcon" class="text-6xl group-hover:scale-110 transition-transform mb-2">💎</div>
-                <div class="text-xs font-black text-amber-400 uppercase tracking-widest">УДАРИТИ КІРКОЮ!</div>
-                <div class="text-[10px] text-slate-400 mt-1">Шанс успіху: 65% | До +$5,000,000 за удар</div>
-            </div>
-
-            <div id="mineFeedback" class="text-xs font-bold min-h-[18px] text-slate-300">
-                Видобудьте нові фішки!
-            </div>
-
-            <button id="closeMineBtn" onclick="closeMineModal()" disabled class="w-full py-3.5 rounded-2xl bg-slate-800 text-slate-500 font-black text-xs transition-all">
-                ПОВЕРНУТИСЯ ДО ГРИ
-            </button>
-        </div>
+    <div class="action-buttons">
+      <button class="btn-main btn-start" id="btn-start">ПОЧАТИ ГРУ</button>
+      <button class="btn-main btn-step" id="btn-step" style="display: none;">ЗРОБИТИ КРОК 🐾</button>
+      <button class="btn-main btn-cashout" id="btn-cashout" style="display: none;">ЗАБРАТИ ($0)</button>
     </div>
+  </div>
 
-    <!-- ПОВНИЙ ДВИГУН ГРИ НА JAVASCRIPT -->
-    <script>
-        /* Глобальний стан та параметри */
-        let balance = 1000000000;
-        let bet = 200;
-        let difficulty = 'hard';
-        let gameState = 'IDLE'; // IDLE, PLAYING, GAMEOVER
-        let currentStep = 0; 
-        const totalSteps = 10;
-        let multipliers = [];
-        let cars = [];
-        let particles = [];
-        let audioEnabled = true;
-        let animTick = 0;
-        let canvas, ctx;
-        let cameraX = 0;
+  <!-- Admin Modal -->
+  <div class="modal-overlay" id="admin-modal">
+    <div class="modal-card">
+      <div class="modal-title">⚙️ АДМІН-ПАНЕЛЬ</div>
+      <div id="admin-auth-sec">
+        <div style="font-size: 13px; color: #8b949e; margin-bottom: 6px;">Введіть секретний код доступу:</div>
+        <input type="password" id="admin-code-input" class="modal-input" placeholder="Код...">
+      </div>
+      <div id="admin-panel-sec" style="display: none; flex-direction: column; gap: 12px;">
+        <div style="font-size: 13px; color: #8b949e;">Встановіть бажаний баланс ($):</div>
+        <input type="number" id="admin-balance-input" class="modal-input" value="1000000000">
+      </div>
+      <div class="modal-btns">
+        <button class="btn-modal btn-modal-confirm" id="btn-admin-submit">Підтвердити</button>
+        <button class="btn-modal btn-modal-close" id="btn-admin-close">Закрити</button>
+      </div>
+    </div>
+  </div>
 
-        /* Налаштування режимів складності */
-        const diffSettings = {
-            easy: { 
-                safeProb: 0.90, 
-                baseMult: 1.18, 
-                incMult: 0.22,
-                speedMin: 1.8,
-                speedMax: 3.2,
-                density: 2
-            },
-            medium: { 
-                safeProb: 0.78, 
-                baseMult: 1.46, 
-                incMult: 0.45,
-                speedMin: 3.0,
-                speedMax: 5.2,
-                density: 3
-            },
-            hard: { 
-                safeProb: 0.62, 
-                baseMult: 1.85, 
-                incMult: 0.85,
-                speedMin: 4.5,
-                speedMax: 7.5,
-                density: 4
-            },
-            hardcore: { 
-                safeProb: 0.42, 
-                baseMult: 2.75, 
-                incMult: 1.95,
-                speedMin: 6.5,
-                speedMax: 11.0,
-                density: 5
-            }
-        };
-
-        /* Web Audio API Синтезатор */
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        let audioCtx = null;
-
-        function initAudio() {
-            if (!audioCtx) audioCtx = new AudioContext();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+  <script>
+    // --- Web Audio Synthesizer Engine ---
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+      }
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         }
-
-        function toggleAudio() {
-            audioEnabled = !audioEnabled;
-            const btn = document.getElementById('soundToggleBtn');
-            btn.innerHTML = audioEnabled ? '<i class="fa-solid fa-volume-high"></i>' : '<i class="fa-solid fa-volume-xmark text-rose-500"></i>';
+      }
+      playStep() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.08);
+      }
+      playExplosion() {
+        if (!this.ctx) return;
+        const bufferSize = this.ctx.sampleRate * 0.4;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
         }
-
-        function playSound(type) {
-            if (!audioEnabled) return;
-            try {
-                initAudio();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                const now = audioCtx.currentTime;
-
-                if (type === 'step') {
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(350, now);
-                    osc.frequency.exponentialRampToValueAtTime(700, now + 0.08);
-                    gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
-                    osc.start(now);
-                    osc.stop(now + 0.08);
-                } else if (type === 'crash') {
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(250, now);
-                    osc.frequency.exponentialRampToValueAtTime(30, now + 0.45);
-                    gain.gain.setValueAtTime(0.4, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.45);
-                    osc.start(now);
-                    osc.stop(now + 0.45);
-                } else if (type === 'win') {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(440, now);
-                    osc.frequency.setValueAtTime(554, now + 0.09);
-                    osc.frequency.setValueAtTime(659, now + 0.18);
-                    osc.frequency.setValueAtTime(880, now + 0.27);
-                    gain.gain.setValueAtTime(0.35, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
-                    osc.start(now);
-                    osc.stop(now + 0.4);
-                } else if (type === 'mine') {
-                    osc.type = 'square';
-                    osc.frequency.setValueAtTime(160, now);
-                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.1);
-                    gain.gain.setValueAtTime(0.25, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
-                    osc.start(now);
-                    osc.stop(now + 0.1);
-                }
-            } catch(e) {}
-        }
-
-        /*Canvas Рендеринг */
-        window.addEventListener('load', () => {
-            canvas = document.getElementById('gameCanvas');
-            ctx = canvas.getContext('2d');
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            recalcMultipliers();
-            initCars();
-            updateUI();
-            startLiveTicker();
-
-            requestAnimationFrame(gameLoop);
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = buffer;
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.8, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.4);
+        noise.connect(gain);
+        gain.connect(this.ctx.destination);
+        noise.start();
+      }
+      playWin() {
+        if (!this.ctx) return;
+        const notes = [440, 554.37, 659.25, 880];
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime + idx * 0.08);
+          gain.gain.setValueAtTime(0.2, this.ctx.currentTime + idx * 0.08);
+          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + idx * 0.08 + 0.15);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(this.ctx.currentTime + idx * 0.08);
+          osc.stop(this.ctx.currentTime + idx * 0.08 + 0.15);
         });
+      }
+      playMine() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, this.ctx.currentTime + 0.06);
+        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.06);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.06);
+      }
+    }
 
-        function resizeCanvas() {
-            if (!canvas) return;
-            const parent = canvas.parentElement;
-            canvas.width = parent.clientWidth;
-            canvas.height = parent.clientHeight;
+    const sound = new SoundEngine();
+
+    // --- Main Game Engine ---
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // App State
+    let balance = 1000000000;
+    let currentBet = 1000;
+    let gameState = 'IDLE'; // IDLE, PLAYING, CRASHED, GAMEOVER
+    let currentStep = 0;
+    const maxSteps = 10;
+    let particles = [];
+    let vehicles = [];
+
+    // Difficulty Multipliers Config
+    const diffConfigs = {
+      easy: { mults: [1.12, 1.28, 1.48, 1.72, 2.05, 2.50, 3.10, 4.00, 5.50, 8.00], speedScale: 1.0, density: 1 },
+      medium: { mults: [1.18, 1.46, 1.85, 2.35, 3.05, 4.10, 5.75, 8.20, 12.50, 20.00], speedScale: 1.5, density: 2 },
+      hard: { mults: [1.30, 1.80, 2.55, 3.70, 5.50, 8.50, 13.80, 23.00, 40.00, 75.00], speedScale: 2.2, density: 3 },
+      hardcore: { mults: [1.50, 2.40, 4.10, 7.20, 13.50, 26.00, 52.00, 110.00, 240.00, 500.00], speedScale: 3.0, density: 4 }
+    };
+
+    // Rendering Geometry Specs
+    const leftSidewalkWidth = 90;
+    const rightSidewalkWidth = 70;
+    const roadStartX = leftSidewalkWidth;
+    const roadEndX = canvas.width - rightSidewalkWidth;
+    const laneWidth = (roadEndX - roadStartX) / maxSteps;
+
+    // Vehicle Spawning Logic
+    function createVehicle(laneIdx) {
+      const config = diffConfigs[document.getElementById('difficulty-select').value];
+      const speed = (2 + Math.random() * 2.5) * config.speedScale;
+      const dir = laneIdx % 2 === 0 ? 1 : -1;
+      const types = ['car_red', 'car_blue', 'truck', 'police'];
+      const type = types[Math.floor(Math.random() * types.length)];
+      return {
+        lane: laneIdx,
+        x: roadStartX + laneIdx * laneWidth + laneWidth / 2,
+        y: dir === 1 ? -60 : canvas.height + 60,
+        speed: speed * dir,
+        type: type,
+        height: type === 'truck' ? 50 : 36,
+        width: 24
+      };
+    }
+
+    function initVehicles() {
+      vehicles = [];
+      const config = diffConfigs[document.getElementById('difficulty-select').value];
+      for (let i = 0; i < maxSteps; i++) {
+        const count = Math.floor(1 + Math.random() * config.density);
+        for (let c = 0; c < count; c++) {
+          const v = createVehicle(i);
+          v.y = Math.random() * canvas.height;
+          vehicles.push(v);
+        }
+      }
+    }
+
+    // Particle FX
+    function spawnExplosion(x, y) {
+      for (let i = 0; i < 40; i++) {
+        particles.push({
+          x: x, y: y,
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.5) * 8,
+          radius: 2 + Math.random() * 4,
+          color: ['#e74c3c', '#f1c40f', '#ecf0f1', '#e67e22'][Math.floor(Math.random() * 4)],
+          life: 1.0
+        });
+      }
+    }
+
+    function spawnWinParticles(x, y) {
+      for (let i = 0; i < 50; i++) {
+        particles.push({
+          x: x, y: y,
+          vx: (Math.random() - 0.5) * 10,
+          vy: (Math.random() - 0.5) * 10,
+          radius: 3 + Math.random() * 3,
+          color: ['#2ecc71', '#f1c40f', '#3498db', '#9b59b6'][Math.floor(Math.random() * 4)],
+          life: 1.2
+        });
+      }
+    }
+
+    // --- Drawing Engine ---
+    function drawEnvironment() {
+      // Background Grass/Sidewalk Left
+      ctx.fillStyle = '#27ae60';
+      ctx.fillRect(0, 0, leftSidewalkWidth, canvas.height);
+      ctx.fillStyle = '#7f8c8d';
+      ctx.fillRect(leftSidewalkWidth - 10, 0, 10, canvas.height);
+
+      // Background Grass/Sidewalk Right
+      ctx.fillStyle = '#27ae60';
+      ctx.fillRect(roadEndX, 0, rightSidewalkWidth, canvas.height);
+      ctx.fillStyle = '#7f8c8d';
+      ctx.fillRect(roadEndX, 0, 10, canvas.height);
+
+      // Main Road Asphalt
+      ctx.fillStyle = '#34495e';
+      ctx.fillRect(roadStartX, 0, roadEndX - roadStartX, canvas.height);
+
+      // Lanes & Sewage Manhole Covers
+      const diffKey = document.getElementById('difficulty-select').value;
+      const mults = diffConfigs[diffKey].mults;
+
+      for (let i = 0; i < maxSteps; i++) {
+        const laneX = roadStartX + i * laneWidth;
+        
+        // Lane Divider Line
+        ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+        ctx.setLineDash([10, 10]);
+        ctx.beginPath();
+        ctx.moveTo(laneX, 0);
+        ctx.lineTo(laneX, canvas.height);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Sewer Manhole (Step Target)
+        const manholeX = laneX + laneWidth / 2;
+        const manholeY = canvas.height / 2;
+
+        ctx.fillStyle = (i < currentStep) ? '#2ecc71' : (i === currentStep && gameState === 'PLAYING' ? '#f1c40f' : '#2c3e50');
+        ctx.beginPath();
+        ctx.arc(manholeX, manholeY, 22, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#bdc3c7';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Multiplier Text on Cover
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(mults[i] + 'x', manholeX, manholeY + 4);
+      }
+    }
+
+    function drawVehicles() {
+      vehicles.forEach(v => {
+        ctx.save();
+        ctx.translate(v.x, v.y);
+
+        if (v.type === 'police') {
+          ctx.fillStyle = '#2980b9';
+        } else if (v.type === 'truck') {
+          ctx.fillStyle = '#e67e22';
+        } else if (v.type === 'car_red') {
+          ctx.fillStyle = '#e74c3c';
+        } else {
+          ctx.fillStyle = '#9b59b6';
         }
 
-        function recalcMultipliers() {
-            multipliers = [];
-            const cfg = diffSettings[difficulty];
-            let val = cfg.baseMult;
-            for (let i = 0; i < totalSteps; i++) {
-                multipliers.push(parseFloat(val.toFixed(2)));
-                val += cfg.incMult * (1 + i * 0.15);
+        ctx.fillRect(-v.width / 2, -v.height / 2, v.width, v.height);
+        
+        // Headlights
+        ctx.fillStyle = '#f1c40f';
+        if (v.speed > 0) {
+          ctx.fillRect(-v.width / 2 + 2, v.height / 2 - 2, 5, 4);
+          ctx.fillRect(v.width / 2 - 7, v.height / 2 - 2, 5, 4);
+        } else {
+          ctx.fillRect(-v.width / 2 + 2, -v.height / 2 - 2, 5, 4);
+          ctx.fillRect(v.width / 2 - 7, -v.height / 2 - 2, 5, 4);
+        }
+
+        ctx.restore();
+      });
+    }
+
+    function drawChicken() {
+      let targetX = leftSidewalkWidth / 2;
+      let targetY = canvas.height / 2;
+
+      if (currentStep > 0) {
+        targetX = roadStartX + (currentStep - 0.5) * laneWidth;
+      }
+
+      ctx.save();
+      ctx.translate(targetX, targetY);
+
+      if (gameState !== 'CRASHED') {
+        // Body
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(0, 0, 16, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#d5dbdb';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Comb (Hat)
+        ctx.fillStyle = '#e74c3c';
+        ctx.beginPath();
+        ctx.arc(0, -14, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Beak
+        ctx.fillStyle = '#f39c12';
+        ctx.beginPath();
+        ctx.moveTo(8, -2);
+        ctx.lineTo(16, 2);
+        ctx.lineTo(8, 6);
+        ctx.fill();
+
+        // Eye
+        ctx.fillStyle = '#2c3e50';
+        ctx.beginPath();
+        ctx.arc(4, -4, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+    }
+
+    function drawParticles() {
+      particles.forEach((p, index) => {
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.life;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.02;
+
+        if (p.life <= 0) {
+          particles.splice(index, 1);
+        }
+      });
+    }
+
+    // Main Animation Loop
+    function updatePhysics() {
+      if (gameState === 'PLAYING') {
+        vehicles.forEach(v => {
+          v.y += v.speed;
+          if (v.speed > 0 && v.y > canvas.height + 60) v.y = -60;
+          if (v.speed < 0 && v.y < -60) v.y = canvas.height + 60;
+
+          // Collision Check
+          if (currentStep > 0) {
+            const chickenX = roadStartX + (currentStep - 0.5) * laneWidth;
+            const chickenY = canvas.height / 2;
+
+            const dx = Math.abs(v.x - chickenX);
+            const dy = Math.abs(v.y - chickenY);
+
+            if (dx < 20 && dy < 25) {
+              // Hit!
+              gameState = 'CRASHED';
+              sound.playExplosion();
+              spawnExplosion(chickenX, chickenY);
+              endGame(false);
             }
+          }
+        });
+      }
+    }
+
+    function renderFrame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawEnvironment();
+      drawVehicles();
+      drawChicken();
+      drawParticles();
+      updatePhysics();
+      requestAnimationFrame(renderFrame);
+    }
+
+    // --- UI & Controls Handling ---
+    function formatMoney(num) {
+      return num.toLocaleString('en-US');
+    }
+
+    function updateUI() {
+      document.getElementById('ui-balance').innerText = formatMoney(balance);
+      const diffKey = document.getElementById('difficulty-select').value;
+      const mults = diffConfigs[diffKey].mults;
+
+      if (gameState === 'PLAYING' && currentStep > 0) {
+        const curMult = mults[currentStep - 1];
+        const winVal = Math.floor(currentBet * curMult);
+        document.getElementById('ui-current-mult').innerText = `Множник: ${curMult}x`;
+        document.getElementById('btn-cashout').innerText = `ЗАБРАТИ ($${formatMoney(winVal)})`;
+      } else {
+        document.getElementById('ui-current-mult').innerText = `Множник: 1.00x`;
+        document.getElementById('btn-cashout').innerText = `ЗАБРАТИ ($0)`;
+      }
+
+      // Zero Balance Recovery Check
+      if (balance <= 0 && gameState === 'IDLE') {
+        document.getElementById('miner-overlay').style.display = 'flex';
+      } else {
+        document.getElementById('miner-overlay').style.display = 'none';
+      }
+    }
+
+    function startGame() {
+      sound.init();
+      const inputVal = parseInt(document.getElementById('bet-input').value.replace(/,/g, '')) || 0;
+      if (inputVal <= 0 || inputVal > balance) {
+        alert('Недійсна ставка!');
+        return;
+      }
+
+      currentBet = inputVal;
+      balance -= currentBet;
+      currentStep = 0;
+      gameState = 'PLAYING';
+
+      initVehicles();
+
+      document.getElementById('btn-start').style.display = 'none';
+      document.getElementById('btn-step').style.display = 'block';
+      document.getElementById('btn-cashout').style.display = 'block';
+      document.getElementById('btn-cashout').disabled = true;
+      document.getElementById('difficulty-select').disabled = true;
+      document.getElementById('bet-input').disabled = true;
+
+      updateUI();
+    }
+
+    function makeStep() {
+      if (gameState !== 'PLAYING') return;
+
+      currentStep++;
+      sound.playStep();
+      document.getElementById('btn-cashout').disabled = false;
+
+      if (currentStep >= maxSteps) {
+        // Auto cashout on reaching destination
+        cashOut();
+      } else {
+        updateUI();
+      }
+    }
+
+    function cashOut() {
+      if (gameState !== 'PLAYING' || currentStep === 0) return;
+
+      const diffKey = document.getElementById('difficulty-select').value;
+      const curMult = diffConfigs[diffKey].mults[currentStep - 1];
+      const winnings = Math.floor(currentBet * curMult);
+
+      balance += winnings;
+      sound.playWin();
+
+      const chickenX = roadStartX + (currentStep - 0.5) * laneWidth;
+      spawnWinParticles(chickenX, canvas.height / 2);
+
+      endGame(true);
+    }
+
+    function endGame(isWin) {
+      gameState = 'IDLE';
+      document.getElementById('btn-start').style.display = 'block';
+      document.getElementById('btn-step').style.display = 'none';
+      document.getElementById('btn-cashout').style.display = 'none';
+      document.getElementById('difficulty-select').disabled = false;
+      document.getElementById('bet-input').disabled = false;
+      updateUI();
+    }
+
+    // --- Event Listeners ---
+    document.getElementById('btn-start').addEventListener('click', startGame);
+    document.getElementById('btn-step').addEventListener('click', makeStep);
+    document.getElementById('btn-cashout').addEventListener('click', cashOut);
+
+    // Bet Presets
+    document.querySelectorAll('.btn-preset').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const type = e.target.dataset.preset;
+        let val = parseInt(document.getElementById('bet-input').value.replace(/,/g, '')) || 0;
+        if (type === 'min') val = 100;
+        if (type === 'half') val = Math.floor(balance / 2);
+        if (type === '2x') val = val * 2;
+        if (type === '10x') val = val * 10;
+        if (type === '1m') val = val + 1000000;
+        if (type === 'max') val = balance;
+
+        if (val > balance) val = balance;
+        if (val < 1) val = 1;
+
+        document.getElementById('bet-input').value = val;
+      });
+    });
+
+    // Admin Panel Logic (Code: 152429)
+    const adminModal = document.getElementById('admin-modal');
+    document.getElementById('btn-open-admin').addEventListener('click', () => {
+      adminModal.style.display = 'flex';
+      document.getElementById('admin-auth-sec').style.display = 'block';
+      document.getElementById('admin-panel-sec').style.display = 'none';
+      document.getElementById('admin-code-input').value = '';
+    });
+
+    document.getElementById('btn-admin-close').addEventListener('click', () => {
+      adminModal.style.display = 'none';
+    });
+
+    document.getElementById('btn-admin-submit').addEventListener('click', () => {
+      const authSec = document.getElementById('admin-auth-sec');
+      const panelSec = document.getElementById('admin-panel-sec');
+
+      if (authSec.style.display !== 'none') {
+        const code = document.getElementById('admin-code-input').value;
+        if (code === '152429') {
+          authSec.style.display = 'none';
+          panelSec.style.display = 'flex';
+        } else {
+          alert('Невірний код доступу!');
         }
-
-        function initCars() {
-            cars = [];
-            const cfg = diffSettings[difficulty];
-            const laneWidth = 70;
-            const startX = 140;
-
-            for (let lane = 1; lane <= totalSteps; lane++) {
-                const numCars = cfg.density;
-                const laneX = startX + (lane - 1) * laneWidth;
-                const isDown = lane % 2 === 0;
-
-                for (let c = 0; c < numCars; c++) {
-                    const speed = (Math.random() * (cfg.speedMax - cfg.speedMin) + cfg.speedMin) * (isDown ? 1 : -1);
-                    const typeRoll = Math.random();
-                    let carType = 'sedan';
-                    let color = '#06b6d4';
-
-                    if (typeRoll > 0.8) {
-                        carType = 'police';
-                        color = '#3b82f6';
-                    } else if (typeRoll > 0.5) {
-                        carType = 'sport';
-                        color = '#f43f5e';
-                    } else if (typeRoll > 0.3) {
-                        carType = 'truck';
-                        color = '#eab308';
-                    }
-
-                    cars.push({
-                        lane: lane,
-                        laneX: laneX,
-                        y: Math.random() * 600 - 100,
-                        speed: speed,
-                        type: carType,
-                        color: color
-                    });
-                }
-            }
-        }
-
-        function gameLoop() {
-            animTick += 0.05;
-            if (ctx && canvas) {
-                renderScene();
-                updateParticles();
-            }
-            requestAnimationFrame(gameLoop);
-        }
-
-        function renderScene() {
-            const w = canvas.width;
-            const h = canvas.height;
-
-            // Плавна камера за куркою
-            const laneWidth = 70;
-            const targetCamX = Math.max(0, (currentStep * laneWidth) - w / 2 + 160);
-            cameraX += (targetCamX - cameraX) * 0.12;
-
-            ctx.clearRect(0, 0, w, h);
-
-            ctx.save();
-            ctx.translate(-cameraX, 0);
-
-            // Лівий тротуар (Старт)
-            ctx.fillStyle = '#334155';
-            ctx.fillRect(0, 0, 120, h);
-
-            // Плитка тротуару
-            ctx.strokeStyle = '#475569';
-            ctx.lineWidth = 2;
-            for (let y = 0; y < h; y += 40) {
-                ctx.beginPath();
-                ctx.moveTo(0, y); ctx.lineTo(120, y);
-                ctx.stroke();
-            }
-
-            // Бордюр
-            ctx.fillStyle = '#fbbf24';
-            ctx.fillRect(116, 0, 8, h);
-
-            // Дорога з вертикальними смугами
-            const startX = 140;
-            const roadWidth = totalSteps * laneWidth + 40;
-            ctx.fillStyle = '#1e293b';
-            ctx.fillRect(124, 0, roadWidth, h);
-
-            // Вертикальні смуги руху та люки
-            for (let i = 1; i <= totalSteps; i++) {
-                const laneX = startX + (i - 1) * laneWidth;
-
-                // Пунктир між смугами
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-                ctx.setLineDash([16, 14]);
-                ctx.lineWidth = 3;
-                ctx.beginPath();
-                ctx.moveTo(laneX + 35, 0);
-                ctx.lineTo(laneX + 35, h);
-                ctx.stroke();
-                ctx.setLineDash([]);
-
-                // Люк каналізації з множником
-                const manholeY = h / 2;
-                const isPassed = i <= currentStep;
-
-                ctx.fillStyle = isPassed ? '#10b981' : '#475569';
-                ctx.beginPath();
-                ctx.arc(laneX + 35, manholeY, 26, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.strokeStyle = isPassed ? '#6ee7b7' : '#94a3b8';
-                ctx.lineWidth = 3.5;
-                ctx.beginPath();
-                ctx.arc(laneX + 35, manholeY, 22, 0, Math.PI * 2);
-                ctx.stroke();
-
-                // Текст множника на люку
-                ctx.fillStyle = '#ffffff';
-                ctx.font = '900 13px Inter, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(`${multipliers[i-1]}x`, laneX + 35, manholeY);
-            }
-
-            // Правий тротуар (Фініш)
-            const finishX = startX + totalSteps * laneWidth;
-            ctx.fillStyle = '#10b981';
-            ctx.fillRect(finishX, 0, 140, h);
-
-            // Трафік авто (Вертикальний рух)
-            cars.forEach(car => {
-                car.y += car.speed;
-                if (car.speed > 0 && car.y > h + 80) car.y = -80;
-                if (car.speed < 0 && car.y < -80) car.y = h + 80;
-
-                drawCartoonVehicle(car.laneX + 35, car.y, car.type, car.color, car.speed > 0);
-            });
-
-            // Частинки
-            particles.forEach(p => {
-                ctx.fillStyle = p.color;
-                ctx.globalAlpha = p.life;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.globalAlpha = 1;
-            });
-
-            // Курка (Переходить зліва направо)
-            let chickenX = 60; // Лівий тротуар
-            if (currentStep > 0) {
-                chickenX = startX + (currentStep - 1) * laneWidth + 35;
-            }
-            const chickenY = h / 2;
-            drawCartoonChicken(chickenX, chickenY);
-
-            ctx.restore();
-        }
-
-        function drawCartoonVehicle(x, y, type, color, isDown) {
-            ctx.save();
-            ctx.translate(x, y);
-            if (!isDown) ctx.scale(1, -1);
-
-            // Тінь
-            ctx.fillStyle = 'rgba(0,0,0,0.35)';
-            ctx.beginPath();
-            ctx.ellipse(0, 4, 18, 30, 0, 0, Math.PI * 2);
-            ctx.fill();
-
-            if (type === 'truck') {
-                ctx.fillStyle = color;
-                ctx.beginPath();
-                ctx.roundRect(-18, -32, 36, 64, 6);
-                ctx.fill();
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(-14, -28, 28, 12);
-            } else if (type === 'police') {
-                ctx.fillStyle = '#0f172a';
-                ctx.beginPath();
-                ctx.roundRect(-16, -26, 32, 52, 8);
-                ctx.fill();
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(-14, -8, 28, 16);
-                // Мигалки
-                const flash = Math.sin(animTick * 12) > 0;
-                ctx.fillStyle = flash ? '#ef4444' : '#3b82f6';
-                ctx.fillRect(-10, -2, 8, 5);
-                ctx.fillStyle = flash ? '#3b82f6' : '#ef4444';
-                ctx.fillRect(2, -2, 8, 5);
-            } else {
-                ctx.fillStyle = color;
-                ctx.beginPath();
-                ctx.roundRect(-15, -24, 30, 48, 8);
-                ctx.fill();
-                ctx.fillStyle = '#ffffff';
-                ctx.beginPath();
-                ctx.roundRect(-11, -10, 22, 18, 4);
-                ctx.fill();
-            }
-
-            // Фари
-            ctx.fillStyle = '#fef08a';
-            ctx.beginPath();
-            ctx.arc(-10, 22, 3.5, 0, Math.PI * 2);
-            ctx.arc(10, 22, 3.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.restore();
-        }
-
-        function drawCartoonChicken(x, y) {
-            ctx.save();
-            const bounce = Math.sin(animTick * 8) * 3;
-            ctx.translate(x, y + bounce);
-
-            // Тінь
-            ctx.fillStyle = 'rgba(0,0,0,0.3)';
-            ctx.beginPath();
-            ctx.ellipse(0, 16, 14, 5, 0, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Лапи
-            ctx.strokeStyle = '#f97316';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(-4, 8); ctx.lineTo(-4, 16);
-            ctx.moveTo(4, 8); ctx.lineTo(4, 16);
-            ctx.stroke();
-
-            // Тулуб
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.arc(0, 0, 16, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Гребінець
-            ctx.fillStyle = '#ef4444';
-            ctx.beginPath();
-            ctx.arc(-4, -18, 4, 0, Math.PI * 2);
-            ctx.arc(0, -20, 5, 0, Math.PI * 2);
-            ctx.arc(4, -18, 4, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Дзьоб (дивиться вправо)
-            ctx.fillStyle = '#f97316';
-            ctx.beginPath();
-            ctx.moveTo(8, -2);
-            ctx.lineTo(16, 2);
-            ctx.lineTo(8, 6);
-            ctx.closePath();
-            ctx.fill();
-
-            // Око
-            ctx.fillStyle = '#0f172a';
-            ctx.beginPath();
-            ctx.arc(6, -4, 2.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.restore();
-        }
-
-        function createExplosion(x, y, color) {
-            for (let i = 0; i < 35; i++) {
-                particles.push({
-                    x: x,
-                    y: y,
-                    vx: (Math.random() - 0.5) * 12,
-                    vy: (Math.random() - 0.5) * 12,
-                    size: Math.random() * 6 + 2,
-                    color: color || '#f43f5e',
-                    life: 1.0,
-                    decay: Math.random() * 0.04 + 0.02
-                });
-            }
-        }
-
-        function updateParticles() {
-            for (let i = particles.length - 1; i >= 0; i--) {
-                let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                p.life -= p.decay;
-                if (p.life <= 0) particles.splice(i, 1);
-            }
-        }
-
-        /* Управління ставками */
-        function onBetInputChange() {
-            const val = parseFloat(document.getElementById('betInput').value);
-            bet = isNaN(val) ? 0 : val;
-            updateBetDisplay();
-        }
-
-        function setBetMin() {
-            if (gameState === 'PLAYING') return;
-            bet = 1;
-            document.getElementById('betInput').value = bet;
-            updateBetDisplay();
-        }
-
-        function setBetMax() {
-            if (gameState === 'PLAYING') return;
-            bet = balance;
-            document.getElementById('betInput').value = bet;
-            updateBetDisplay();
-        }
-
-        function multiplyBet(factor) {
-            if (gameState === 'PLAYING') return;
-            bet = Math.floor(bet * factor);
-            if (bet > balance && balance > 0) bet = balance;
-            if (bet < 1) bet = 1;
-            document.getElementById('betInput').value = bet;
-            updateBetDisplay();
-        }
-
-        function addPresetBet(amount) {
-            if (gameState === 'PLAYING') return;
-            bet += amount;
-            if (bet > balance && balance > 0) bet = balance;
-            document.getElementById('betInput').value = bet;
-            updateBetDisplay();
-        }
-
-        function updateBetDisplay() {
-            document.getElementById('betValueFormatted').innerText = '$' + formatNumber(bet);
-        }
-
-        function changeDifficulty(val) {
-            if (gameState === 'PLAYING') return;
-            difficulty = val;
-            recalcMultipliers();
-            initCars();
-        }
-
-        /* Кнопки дій гри */
-        function startGame() {
-            if (bet <= 0) {
-                alert('Укажіть правильну суму ставки!');
-                return;
-            }
-
-            if (bet > balance) {
-                if (balance <= 0) openMineModal();
-                else alert('Недостатньо коштів на балансі!');
-                return;
-            }
-
-            balance -= bet;
-            gameState = 'PLAYING';
-            currentStep = 0;
-            updateUI();
-            playSound('step');
-
-            document.getElementById('startGameBtn').classList.add('hidden');
-            document.getElementById('stepBtn').classList.remove('hidden');
-            document.getElementById('cashoutButton').classList.add('hidden');
-        }
-
-        function makeStep() {
-            if (gameState !== 'PLAYING') return;
-
-            const cfg = diffSettings[difficulty];
-            const isSafe = Math.random() < cfg.safeProb;
-
-            if (isSafe) {
-                currentStep++;
-                playSound('step');
-
-                const curMult = multipliers[currentStep - 1];
-                const cashVal = bet * curMult;
-
-                document.getElementById('cashoutButton').classList.remove('hidden');
-                document.getElementById('cashoutBtnText').innerText = `ЗАБРАТИ СТАВКУ ($${formatNumber(cashVal)}) [${curMult}x]`;
-
-                if (currentStep >= totalSteps) {
-                    cashOut();
-                }
-            } else {
-                playSound('crash');
-                triggerScreenShake();
-                
-                const startX = 140;
-                const laneWidth = 70;
-                const chickenX = startX + currentStep * laneWidth + 35;
-                createExplosion(chickenX, canvas.height / 2, '#f43f5e');
-
-                gameState = 'GAMEOVER';
-                showResultOverlay(false, `Курку збило авто на смузі №${currentStep + 1}! Втрачено $${formatNumber(bet)}.`);
-                updateUI();
-                resetButtons();
-
-                if (balance <= 0) {
-                    setTimeout(openMineModal, 1400);
-                }
-            }
-        }
-
-        function cashOut() {
-            if (gameState !== 'PLAYING' || currentStep === 0) return;
-
-            const mult = multipliers[currentStep - 1];
-            const winVal = bet * mult;
-            balance += winVal;
-            gameState = 'IDLE';
-
-            playSound('win');
-            
-            const startX = 140;
-            const laneWidth = 70;
-            const chickenX = startX + (currentStep - 1) * laneWidth + 35;
-            createExplosion(chickenX, canvas.height / 2, '#10b981');
-
-            showResultOverlay(true, `Ви успішно перейшли ${currentStep} смуг та забрали $${formatNumber(winVal)} (${mult}x)!`);
-            updateUI();
-            resetButtons();
-        }
-
-        function resetButtons() {
-            document.getElementById('startGameBtn').classList.remove('hidden');
-            document.getElementById('stepBtn').classList.add('hidden');
-            document.getElementById('cashoutButton').classList.add('hidden');
-        }
-
-        function triggerScreenShake() {
-            const wrapper = document.getElementById('gameWrapper');
-            wrapper.classList.add('shake');
-            setTimeout(() => wrapper.classList.remove('shake'), 450);
-        }
-
-        function showResultOverlay(isWin, desc) {
-            const overlay = document.getElementById('statusOverlay');
-            const box = document.getElementById('statusBox');
-            const emoji = document.getElementById('statusEmoji');
-            const title = document.getElementById('statusTitle');
-            const text = document.getElementById('statusDesc');
-
-            if (isWin) {
-                emoji.innerText = '🎉';
-                title.innerText = 'ВИГРАШ!';
-                title.className = "text-2xl font-black text-emerald-400 mb-1";
-            } else {
-                emoji.innerText = '💥';
-                title.innerText = 'АВАРІЯ!';
-                title.className = "text-2xl font-black text-rose-500 mb-1";
-            }
-
-            text.innerText = desc;
-            overlay.classList.remove('opacity-0', 'pointer-events-none');
-            box.classList.remove('scale-90');
-            box.classList.add('scale-100');
-        }
-
-        function dismissStatusOverlay() {
-            const overlay = document.getElementById('statusOverlay');
-            const box = document.getElementById('statusBox');
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-            box.classList.remove('scale-100');
-            box.classList.add('scale-90');
-            gameState = 'IDLE';
-        }
-
-        function updateUI() {
-            document.getElementById('balanceDisplay').innerText = '$' + formatNumber(balance);
-            updateBetDisplay();
-        }
-
-        function formatNumber(num) {
-            return new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(num);
-        }
-
-        function startLiveTicker() {
-            const users = ['Гравець_UA', 'MegaWinner', 'ChickenKing', 'LuckyBooster', 'MasterBet', 'TurboGamer', 'SpeedyChicken'];
-            setInterval(() => {
-                const randomUser = users[Math.floor(Math.random() * users.length)];
-                const randomWin = (Math.random() * 450000 + 10000).toFixed(0);
-                document.getElementById('liveTicker').innerHTML = `<span class="text-slate-400">Останній виграш:</span> ${randomUser} <span class="text-emerald-400 font-bold">+$${formatNumber(randomWin)}</span>`;
-                document.getElementById('onlineCounter').innerText = formatNumber(Math.floor(13500 + Math.random() * 900));
-            }, 3200);
-        }
-
-        /* Міні-гра "Золота Шахта" */
-        function openMineModal() {
-            document.getElementById('bankruptModal').classList.remove('hidden');
-            updateMineModalBtn();
-        }
-
-        function closeMineModal() {
-            if (balance > 0) {
-                document.getElementById('bankruptModal').classList.add('hidden');
-            }
-        }
-
-        function tapMineGold(e) {
-            const feedback = document.getElementById('mineFeedback');
-            const icon = document.getElementById('mineIcon');
-
-            icon.classList.add('scale-125');
-            setTimeout(() => icon.classList.remove('scale-125'), 120);
-
-            const success = Math.random() < 0.65;
-            if (success) {
-                const reward = 5000000;
-                balance += reward;
-                playSound('mine');
-                feedback.className = "text-xs font-bold text-emerald-400 animate-pulse";
-                feedback.innerText = `ЗНАХІДКА! Ви видобули +$${formatNumber(reward)}!`;
-            } else {
-                playSound('crash');
-                feedback.className = "text-xs font-bold text-rose-400";
-                feedback.innerText = 'УДАР МИМО! Гранітна порода. Спробуйте ще!';
-            }
-
-            updateUI();
-            updateMineModalBtn();
-        }
-
-        function updateMineModalBtn() {
-            const btn = document.getElementById('closeMineBtn');
-            if (balance > 0) {
-                btn.disabled = false;
-                btn.className = "w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs shadow-lg transition-all cursor-pointer glow-green";
-                btn.innerText = `ПОВЕРНУТИСЯ ДО ГРИ ($${formatNumber(balance)})`;
-            } else {
-                btn.disabled = true;
-                btn.className = "w-full py-3.5 rounded-2xl bg-slate-800 text-slate-500 font-black text-xs transition-all";
-                btn.innerText = "ПОВЕРНУТИСЯ ДО ГРИ (Потрібно > $0)";
-            }
-        }
-    </script>
+      } else {
+        const newBal = parseInt(document.getElementById('admin-balance-input').value) || 0;
+        balance = newBal;
+        updateUI();
+        adminModal.style.display = 'none';
+        alert('Баланс успішно змінено!');
+      }
+    });
+
+    // Gold Miner Recovery Mini-Game
+    document.getElementById('btn-mine-gold').addEventListener('click', () => {
+      sound.init();
+      sound.playMine();
+      const success = Math.random() < 0.65;
+      const statusEl = document.getElementById('miner-status');
+
+      if (success) {
+        balance += 5000000;
+        statusEl.style.color = '#2ecc71';
+        statusEl.innerText = 'Успішно! Знайдено +$5,000,000!';
+      } else {
+        statusEl.style.color = '#e74c3c';
+        statusEl.innerText = 'Невдача... Спробуйте ще раз!';
+      }
+
+      updateUI();
+    }
+
+    // Init Engine
+    initVehicles();
+    renderFrame();
+    updateUI();
+  </script>
 </body>
 </html>
