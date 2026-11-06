@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="uk" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chicken Road Extreme - Ultra Simulator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            900: '#881337',
+                        },
+                        neon: {
+                            green: '#10b981',
+                            yellow: '#fbbf24',
+                            purple: '#a855f7',
+                            cyan: '#06b6d4',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow-x: hidden;
+        }
+        .neon-border {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3), inset 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+        .neon-border-danger {
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.4), inset 0 0 10px rgba(244, 63, 94, 0.2);
+        }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        /* Canvas Responsive Container */
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 1rem;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased text-slate-100">
+
+    <!-- Header Navigation -->
+    <header class="w-full glass-panel sticky top-0 z-40 border-b border-slate-800 px-4 py-3">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-500 to-amber-300 flex items-center justify-center text-slate-950 font-black text-2xl shadow-lg shadow-amber-500/20">
+                    🐔
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-wider bg-gradient-to-r from-yellow-400 via-amber-200 to-emerald-400 bg-clip-text text-transparent">
+                        CHICKEN ROAD <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-semibold border border-emerald-500/30">ULTRA DEMO</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Симулятор без лімітів та ризиків</p>
+                </div>
+            </div>
+
+            <!-- Balance Display -->
+            <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-2xl px-4 py-2 shadow-inner">
+                <i class="fa-solid fa-wallet text-emerald-400 text-lg"></i>
+                <div class="flex flex-col items-end">
+                    <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Віртуальний баланс</span>
+                    <span id="balanceDisplay" class="font-black text-emerald-400 text-lg tracking-tight">$1,000,000,000</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-3 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left Side: Game Canvas Viewport -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+            <div class="relative glass-panel rounded-2xl p-2 sm:p-4 border border-slate-800 shadow-2xl aspect-[4/5] sm:aspect-[4/4] max-h-[600px] w-full flex flex-col justify-between overflow-hidden">
+                
+                <!-- Status Banner / Overlay inside Canvas Container -->
+                <div id="gameOverlay" class="absolute inset-0 z-20 pointer-events-none flex items-center justify-center p-6 bg-slate-950/40 backdrop-blur-[2px] transition-all duration-300 opacity-100">
+                    <div class="text-center p-6 rounded-2xl glass-panel border border-slate-700/60 shadow-2xl max-w-sm pointer-events-auto">
+                        <div id="overlayIcon" class="text-5xl mb-3">🚦</div>
+                        <h2 id="overlayTitle" class="text-2xl font-black text-white mb-2">Готові до старту?</h2>
+                        <p id="overlaySub" class="text-sm text-slate-300 mb-4">Оберіть ставку та складність, щоб розпочати перехід через дорогоміську магістраль!</p>
+                        <button id="overlayBtn" onclick="startGameSession()" class="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-lg shadow-lg shadow-emerald-500/20 active:scale-95 transition-all">
+                            ПОЧАТИ ГРУ 🚀
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas Gameplay -->
+                <div class="relative w-full h-full rounded-xl overflow-hidden bg-slate-950">
+                    <canvas id="gameCanvas"></canvas>
+                </div>
+
+                <!-- Action Bar Inside Game Frame -->
+                <div class="mt-3 flex items-center justify-between gap-3 z-10">
+                    <button id="stepBtn" onclick="makeStep()" disabled class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 text-slate-950 font-black text-lg shadow-lg shadow-emerald-500/20 active:scale-95 transition-all flex items-center justify-center gap-2">
+                        <span>ЗРОБИТИ КРОК</span>
+                        <i class="fa-solid fa-shoe-prints"></i>
+                    </button>
+                    <button id="cashoutBtn" onclick="cashOut()" disabled class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 text-slate-950 font-black text-lg shadow-lg shadow-amber-500/20 active:scale-95 transition-all flex items-center justify-center gap-2">
+                        <span>ЗАБРАТИ</span>
+                        <span id="currentCashoutVal" class="text-sm bg-slate-950/30 px-2 py-0.5 rounded text-slate-950 font-black">$0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Controls & Betting -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- Betting Panel -->
+            <div class="glass-panel rounded-2xl p-5 border border-slate-800 shadow-xl space-y-5">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-emerald-400"></i> Панель Ставок
+                    </h3>
+                    <span class="text-xs text-slate-400">Без обмежень (No Limit)</span>
+                </div>
+
+                <!-- Difficulty Selector -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Складність гри</label>
+                    <div class="grid grid-cols-4 gap-2" id="difficultyGroup">
+                        <button onclick="setDifficulty('easy')" id="diff-easy" class="diff-btn py-2 px-1 rounded-xl font-bold text-xs bg-slate-800 border border-slate-700 hover:border-slate-500 text-slate-300 transition-all text-center">
+                            Easy<br><span class="text-[10px] font-normal text-emerald-400">Low Risk</span>
+                        </button>
+                        <button onclick="setDifficulty('medium')" id="diff-medium" class="diff-btn py-2 px-1 rounded-xl font-bold text-xs bg-emerald-500/20 border-2 border-emerald-500 text-emerald-400 transition-all text-center">
+                            Medium<br><span class="text-[10px] font-normal text-emerald-300">Balanced</span>
+                        </button>
+                        <button onclick="setDifficulty('hard')" id="diff-hard" class="diff-btn py-2 px-1 rounded-xl font-bold text-xs bg-slate-800 border border-slate-700 hover:border-slate-500 text-slate-300 transition-all text-center">
+                            Hard<br><span class="text-[10px] font-normal text-amber-400">High x</span>
+                        </button>
+                        <button onclick="setDifficulty('hardcore')" id="diff-hardcore" class="diff-btn py-2 px-1 rounded-xl font-bold text-xs bg-slate-800 border border-slate-700 hover:border-slate-500 text-slate-300 transition-all text-center">
+                            Hardcore<br><span class="text-[10px] font-normal text-rose-400">Extreme</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bet Input & Presets -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Сума Ставки ($)</label>
+                        <span class="text-xs text-emerald-400 font-mono" id="betPreview">$10,000</span>
+                    </div>
+
+                    <div class="relative mb-3">
+                        <input type="number" id="betInput" min="1" step="any" value="10000" oninput="updateBetPreview()" class="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 pl-4 pr-16 text-lg font-black text-white focus:outline-none focus:border-emerald-500 transition-all">
+                        <button onclick="setBetMax()" class="absolute right-2 top-2 bottom-2 px-3 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-lg text-xs font-bold transition-all border border-emerald-500/30">
+                            MAX
+                        </button>
+                    </div>
+
+                    <!-- Preset Chips -->
+                    <div class="grid grid-cols-4 gap-2">
+                        <button onclick="adjustBet(100)" class="py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300">+$100</button>
+                        <button onclick="adjustBet(1000)" class="py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300">+$1K</button>
+                        <button onclick="adjustBet(100000)" class="py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300">+$100K</button>
+                        <button onclick="multiplyBet(2)" class="py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-amber-400">2x</button>
+                    </div>
+                </div>
+
+                <!-- Primary Play Button -->
+                <button id="mainPlayBtn" onclick="startGameSession()" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:brightness-110 text-slate-950 font-black text-xl shadow-xl shadow-emerald-500/20 active:scale-[0.98] transition-all">
+                    СТАРТ ГРИ 🎮
+                </button>
+            </div>
+
+            <!-- Stats & History Box -->
+            <div class="glass-panel rounded-2xl p-5 border border-slate-800 shadow-xl space-y-4">
+                <h3 class="text-sm font-bold text-slate-300 flex items-center justify-between">
+                    <span><i class="fa-solid fa-chart-line text-amber-400 mr-2"></i> Статистика сесії</span>
+                    <button onclick="resetStats()" class="text-xs text-slate-500 hover:text-slate-300">Скинути</button>
+                </h3>
+                
+                <div class="grid grid-cols-3 gap-3 text-center">
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <div class="text-[10px] text-slate-400 uppercase font-bold">Перемог</div>
+                        <div id="statWins" class="text-lg font-black text-emerald-400">0</div>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <div class="text-[10px] text-slate-400 uppercase font-bold">Поразок</div>
+                        <div id="statLosses" class="text-lg font-black text-rose-400">0</div>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                        <div class="text-[10px] text-slate-400 uppercase font-bold">Макс Множник</div>
+                        <div id="statMaxMult" class="text-lg font-black text-amber-400">1.00x</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Bankrupt Recovery Modal / Mini-Game Overlay -->
+    <div id="bankruptModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-panel max-w-md w-full rounded-3xl p-6 border border-amber-500/40 shadow-2xl text-center space-y-5">
+            <div class="w-16 h-16 rounded-full bg-amber-500/20 border-2 border-amber-500 text-amber-400 text-3xl flex items-center justify-center mx-auto animate-bounce">
+                💸
+            </div>
+            <div>
+                <h2 class="text-2xl font-black text-white">БАЛАНС 0 $!</h2>
+                <p class="text-xs text-slate-400 mt-1">Ви витратили всі віртуальні кошти. Пройдіть міні-гру «Золота Шахта», щоб заробити новий капітал!</p>
+            </div>
+
+            <!-- Mini Game Container -->
+            <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 relative overflow-hidden min-h-[200px] flex flex-col justify-between">
+                <div class="flex justify-between items-center text-xs text-slate-400 mb-2">
+                    <span>Шанс успіху: <b class="text-emerald-400">65%</b></span>
+                    <span>Нагорода: <b id="minigameReward" class="text-amber-400">+$1,000,000</b></span>
+                </div>
+
+                <div id="minigameArea" onclick="clickMiniGameItem()" class="cursor-pointer my-4 py-8 bg-gradient-to-b from-slate-800 to-slate-900 rounded-xl border border-dashed border-amber-500/40 hover:border-amber-400 transition-all flex flex-col items-center justify-center gap-2 group">
+                    <span id="mineItemIcon" class="text-6xl transition-transform group-hover:scale-110">⛏️</span>
+                    <span class="text-xs font-bold text-amber-300">НАТИСНІТЬ СУДИ, ЩОБ ДОБУТИ ФІШКИ!</span>
+                </div>
+
+                <div id="miniGameStatus" class="text-xs font-bold text-slate-400 min-h-[20px]">
+                    Клацайте по руді для відновлення фішок!
+                </div>
+            </div>
+
+            <button onclick="closeBankruptModal()" id="closeBankruptBtn" disabled class="w-full py-3 rounded-xl bg-slate-800 text-slate-500 font-bold text-sm transition-all">
+                ПОВЕРНУТИСЯ ДО ГРИ (Потрібно > $0)
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        /* Global Game State Variables */
+        let balance = 1000000000; // 1 Billion Default Virtual Funds
+        let currentBet = 10000;
+        let currentDifficulty = 'medium';
+        let inGame = false;
+        let currentLane = 0; // 0 is start sidewalk, 1..N are road lanes
+        let totalLanes = 10;
+        let multipliers = [];
+        let stats = { wins: 0, losses: 0, maxMult: 1.00 };
+
+        /* Difficulty Configs */
+        const diffConfigs = {
+            easy: { safeProb: 0.88, baseMult: 1.15, multStep: 0.15 },
+            medium: { safeProb: 0.75, baseMult: 1.30, multStep: 0.35 },
+            hard: { safeProb: 0.60, baseMult: 1.65, multStep: 0.70 },
+            hardcore: { safeProb: 0.45, baseMult: 2.50, multStep: 1.50 }
+        };
+
+        /* Web Audio API Synthesizer for SFX */
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) audioCtx = new AudioCtx();
+        }
+
+        function playSound(type) {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'step') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } else if (type === 'win') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.1);
+                    osc.frequency.setValueAtTime(783.99, now + 0.2);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                } else if (type === 'crash') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(200, now);
+                    osc.frequency.exponentialRampToValueAtTime(40, now + 0.3);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (type === 'coin') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(987.77, now);
+                    osc.frequency.setValueAtTime(1318.51, now + 0.08);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.18);
+                    osc.start(now);
+                    osc.stop(now + 0.18);
+                }
+            } catch (e) {
+                // Silence audio errors if context restricted
+            }
+        }
+
+        /* Canvas Renderer Variables */
+        let canvas, ctx;
+        let animFrameId = null;
+        let cars = [];
+
+        window.onload = function() {
+            canvas = document.getElementById('gameCanvas');
+            ctx = canvas.getContext('2d');
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            generateMultipliers();
+            updateUI();
+            initCars();
+            renderLoop();
+        };
+
+        function resizeCanvas() {
+            if (!canvas) return;
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        }
+
+        function generateMultipliers() {
+            multipliers = [];
+            let cfg = diffConfigs[currentDifficulty];
+            let cur = cfg.baseMult;
+            for (let i = 0; i < totalLanes; i++) {
+                multipliers.push(parseFloat(cur.toFixed(2)));
+                cur += cfg.multStep * (1 + i * 0.15);
+            }
+        }
+
+        function initCars() {
+            cars = [];
+            // Spawn some background traffic animations across lanes
+            for (let i = 1; i <= totalLanes; i++) {
+                cars.push({
+                    lane: i,
+                    x: Math.random() * 500,
+                    speed: (Math.random() * 1.5 + 1) * (i % 2 === 0 ? 1 : -1),
+                    color: i % 2 === 0 ? '#f43f5e' : '#06b6d4'
+                });
+            }
+        }
+
+        /* Rendering Canvas Logic */
+        function renderLoop() {
+            if (!ctx) return;
+            const w = canvas.width;
+            const h = canvas.height;
+
+            // Clear Background (Dark Road Theme)
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, w, h);
+
+            const laneHeight = h / (totalLanes + 2); // 0 = start, 1..10 = lanes, 11 = goal
+
+            // Draw Lanes
+            for (let i = 0; i <= totalLanes + 1; i++) {
+                const y = h - (i + 1) * laneHeight;
+
+                if (i === 0 || i === totalLanes + 1) {
+                    // Safe Sidewalks
+                    ctx.fillStyle = '#1e293b';
+                    ctx.fillRect(0, y, w, laneHeight);
+                    ctx.fillStyle = '#334155';
+                    ctx.fillRect(0, y, w, 4);
+                } else {
+                    // Asphalt Lanes
+                    ctx.fillStyle = i % 2 === 0 ? '#111827' : '#0d131f';
+                    ctx.fillRect(0, y, w, laneHeight);
+
+                    // Road Dashed Markings
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+                    ctx.setLineDash([12, 12]);
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(w, y);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    // Draw Lane Multiplier Badge
+                    const mult = multipliers[i - 1];
+                    ctx.fillStyle = i <= currentLane ? '#10b981' : '#64748b';
+                    ctx.font = 'bold 12px Outfit, sans-serif';
+                    ctx.fillText(`${mult}x`, 15, y + laneHeight / 2 + 4);
+                }
+            }
+
+            // Animate & Render Moving Cars (Hazards)
+            cars.forEach(car => {
+                car.x += car.speed;
+                if (car.speed > 0 && car.x > w + 40) car.x = -40;
+                if (car.speed < 0 && car.x < -40) car.x = w + 40;
+
+                const carY = h - (car.lane + 1) * laneHeight + (laneHeight - 20) / 2;
+                ctx.fillStyle = car.color;
+                ctx.shadowColor = car.color;
+                ctx.shadowBlur = 8;
+                ctx.fillRect(car.x, carY, 36, 18);
+                ctx.shadowBlur = 0; // reset
+            });
+
+            // Draw Player Chicken Character
+            const chickenY = h - (currentLane + 1) * laneHeight + laneHeight / 2;
+            const chickenX = w / 2;
+
+            ctx.font = '28px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('🐔', chickenX, chickenY);
+
+            animFrameId = requestAnimationFrame(renderLoop);
+        }
+
+        /* Betting & Controls Logic */
+        function setDifficulty(diff) {
+            if (inGame) return;
+            currentDifficulty = diff;
+            document.querySelectorAll('.diff-btn').forEach(btn => {
+                btn.className = "diff-btn py-2 px-1 rounded-xl font-bold text-xs bg-slate-800 border border-slate-700 hover:border-slate-500 text-slate-300 transition-all text-center";
+            });
+
+            const activeBtn = document.getElementById(`diff-${diff}`);
+            activeBtn.className = "diff-btn py-2 px-1 rounded-xl font-bold text-xs bg-emerald-500/20 border-2 border-emerald-500 text-emerald-400 transition-all text-center";
+
+            generateMultipliers();
+        }
+
+        function updateBetPreview() {
+            const val = parseFloat(document.getElementById('betInput').value) || 0;
+            currentBet = val;
+            document.getElementById('betPreview').innerText = '$' + formatNumber(val);
+        }
+
+        function adjustBet(amount) {
+            if (inGame) return;
+            currentBet = (currentBet || 0) + amount;
+            document.getElementById('betInput').value = currentBet;
+            updateBetPreview();
+        }
+
+        function multiplyBet(factor) {
+            if (inGame) return;
+            currentBet = Math.floor((currentBet || 1) * factor);
+            document.getElementById('betInput').value = currentBet;
+            updateBetPreview();
+        }
+
+        function setBetMax() {
+            if (inGame) return;
+            currentBet = balance;
+            document.getElementById('betInput').value = currentBet;
+            updateBetPreview();
+        }
+
+        /* Game Session Handler */
+        function startGameSession() {
+            if (inGame) return;
+
+            if (currentBet <= 0) {
+                alert('Будь ласка, вкажіть дійсну ставку більше $0!');
+                return;
+            }
+
+            if (currentBet > balance) {
+                if (balance <= 0) {
+                    openBankruptModal();
+                } else {
+                    alert('Недостатньо віртуального балансу для такої ставки!');
+                }
+                return;
+            }
+
+            // Deduct Bet
+            balance -= currentBet;
+            inGame = true;
+            currentLane = 0;
+            updateUI();
+            playSound('step');
+
+            // Hide overlay
+            document.getElementById('gameOverlay').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('stepBtn').disabled = false;
+            document.getElementById('cashoutBtn').disabled = true;
+            document.getElementById('mainPlayBtn').disabled = true;
+        }
+
+        function makeStep() {
+            if (!inGame) return;
+
+            const cfg = diffConfigs[currentDifficulty];
+            const isSafe = Math.random() < cfg.safeProb;
+
+            if (isSafe) {
+                currentLane++;
+                playSound('step');
+                document.getElementById('cashoutBtn').disabled = false;
+
+                const curMult = multipliers[currentLane - 1];
+                const cashVal = currentBet * curMult;
+                document.getElementById('currentCashoutVal').innerText = '$' + formatNumber(cashVal);
+
+                // Reached final safe zone
+                if (currentLane >= totalLanes) {
+                    cashOut();
+                }
+            } else {
+                // Collision / Busted
+                playSound('crash');
+                inGame = false;
+                stats.losses++;
+                updateUI();
+
+                // Show Game Over Overlay
+                showOverlay(
+                    '💥 АВАРІЯ!',
+                    `Курка не змогла перейти ${currentLane + 1}-й люк! Втрачено $${formatNumber(currentBet)}.`,
+                    'СПРОБУВАТИ ЗНОВУ 🔄',
+                    'text-rose-400'
+                );
+
+                if (balance <= 0) {
+                    setTimeout(openBankruptModal, 1200);
+                }
+            }
+        }
+
+        function cashOut() {
+            if (!inGame || currentLane === 0) return;
+
+            const finalMult = multipliers[currentLane - 1];
+            const winAmount = currentBet * finalMult;
+            balance += winAmount;
+            inGame = false;
+            stats.wins++;
+            if (finalMult > stats.maxMult) stats.maxMult = finalMult;
+
+            playSound('win');
+            updateUI();
+
+            showOverlay(
+                '🎉 ВИГРАШ!',
+                `Ви зафіксували ${finalMult}x і забрали $${formatNumber(winAmount)}!`,
+                'ГРАТИ ДАЛІ 🚀',
+                'text-emerald-400'
+            );
+        }
+
+        function showOverlay(title, sub, btnText, colorClass) {
+            document.getElementById('overlayTitle').className = `text-2xl font-black mb-2 ${colorClass}`;
+            document.getElementById('overlayTitle').innerText = title;
+            document.getElementById('overlaySub').innerText = sub;
+            document.getElementById('overlayBtn').innerText = btnText;
+
+            document.getElementById('gameOverlay').classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('stepBtn').disabled = true;
+            document.getElementById('cashoutBtn').disabled = true;
+            document.getElementById('mainPlayBtn').disabled = false;
+        }
+
+        /* UI Syncing */
+        function updateUI() {
+            document.getElementById('balanceDisplay').innerText = '$' + formatNumber(balance);
+            document.getElementById('statWins').innerText = stats.wins;
+            document.getElementById('statLosses').innerText = stats.losses;
+            document.getElementById('statMaxMult').innerText = stats.maxMult.toFixed(2) + 'x';
+
+            const curMult = currentLane > 0 ? multipliers[currentLane - 1] : 1;
+            document.getElementById('currentCashoutVal').innerText = '$' + formatNumber(currentBet * curMult);
+        }
+
+        function formatNumber(num) {
+            return new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(num);
+        }
+
+        function resetStats() {
+            stats = { wins: 0, losses: 0, maxMult: 1.00 };
+            updateUI();
+        }
+
+        /* Bankrupt Recovery Mini-Game */
+        function openBankruptModal() {
+            document.getElementById('bankruptModal').classList.remove('hidden');
+            updateBankruptModalState();
+        }
+
+        function closeBankruptModal() {
+            if (balance > 0) {
+                document.getElementById('bankruptModal').classList.add('hidden');
+            }
+        }
+
+        function clickMiniGameItem() {
+            const icon = document.getElementById('mineItemIcon');
+            const status = document.getElementById('miniGameStatus');
+
+            // 65% Chance of success on mine tap
+            const success = Math.random() < 0.65;
+
+            icon.classList.add('scale-125');
+            setTimeout(() => icon.classList.remove('scale-125'), 150);
+
+            if (success) {
+                const reward = 5000000; // $5 Million per click success
+                balance += reward;
+                playSound('coin');
+                status.className = "text-xs font-bold text-emerald-400";
+                status.innerText = `УСПІХ! Додано +$${formatNumber(reward)}!`;
+            } else {
+                playSound('crash');
+                status.className = "text-xs font-bold text-rose-400";
+                status.innerText = "НЕНАЧЕ ОПЕЧЕННЯ! Невдала спроба, спробуйте ще раз!";
+            }
+
+            updateUI();
+            updateBankruptModalState();
+        }
+
+        function updateBankruptModalState() {
+            const btn = document.getElementById('closeBankruptBtn');
+            if (balance > 0) {
+                btn.disabled = false;
+                btn.className = "w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/20 transition-all cursor-pointer";
+                btn.innerText = `ПОВЕРНУТИСЯ ДО ГРИ (Баланс: $${formatNumber(balance)})`;
+            } else {
+                btn.disabled = true;
+                btn.className = "w-full py-3 rounded-xl bg-slate-800 text-slate-500 font-bold text-sm transition-all";
+                btn.innerText = "ПОВЕРНУТИСЯ ДО ГРИ (Потрібно > $0)";
+            }
+        }
+    </script>
+</body>
+</html>
