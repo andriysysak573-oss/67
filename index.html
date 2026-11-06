@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Chicken Road 2 Deluxe - Ultra Edition</title>
+  <title>Chicken Road 2 Deluxe Mobile</title>
   <style>
     * {
       box-sizing: border-box;
@@ -11,133 +11,114 @@
       padding: 0;
       user-select: none;
       -webkit-user-select: none;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
     body {
-      background-color: #0d1117;
+      background-color: #0b0e14;
       color: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
       min-height: 100vh;
       overflow-x: hidden;
-      padding-bottom: 20px;
     }
     header {
       width: 100%;
-      max-width: 800px;
-      padding: 12px 16px;
+      max-width: 600px;
+      padding: 10px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #161b22;
-      border-bottom: 2px solid #30363d;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      background: #151921;
+      border-bottom: 1px solid #2a313d;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
     .logo-icon {
-      font-size: 28px;
+      font-size: 24px;
       background: #f1c40f;
-      width: 42px;
-      height: 42px;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(241, 196, 15, 0.4);
+      border-radius: 8px;
     }
     .logo-text h1 {
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 900;
       color: #f39c12;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.1;
     }
     .logo-text span {
-      font-size: 11px;
-      color: #8b949e;
+      font-size: 10px;
+      color: #7d8590;
       display: block;
-      margin-top: -2px;
     }
     .top-controls {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
     }
     .balance-badge {
-      background: #21262d;
-      border: 1px solid #30363d;
-      padding: 6px 14px;
-      border-radius: 20px;
+      background: #1c232d;
+      border: 1px solid #2e3846;
+      padding: 5px 10px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-weight: 700;
+      gap: 4px;
+      font-weight: 800;
       color: #2ecc71;
-      font-size: 14px;
+      font-size: 13px;
     }
     .admin-btn {
-      background: #34495e;
-      border: 1px solid #5d6d7e;
-      color: #ecf0f1;
-      padding: 6px 12px;
+      background: #2b3340;
+      border: 1px solid #414d60;
+      color: #e6edf3;
+      padding: 6px 10px;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-      transition: all 0.2s;
+      font-size: 12px;
+      font-weight: 700;
     }
-    .admin-btn:hover {
-      background: #2c3e50;
-      border-color: #f39c12;
-      color: #f39c12;
+    .admin-btn:active {
+      background: #384456;
     }
     #game-container {
       width: 100%;
-      max-width: 800px;
+      max-width: 600px;
       position: relative;
-      margin-top: 10px;
-      background: #1a252f;
-      border-radius: 12px;
+      height: 380px;
+      background: #1a232c;
+      border-bottom: 2px solid #2a313d;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      border: 1px solid #30363d;
     }
     canvas {
       display: block;
       width: 100%;
-      height: 380px;
-      background: #2c3e50;
+      height: 100%;
     }
     .controls-panel {
       width: 100%;
-      max-width: 800px;
-      background: #161b22;
-      border-radius: 12px;
-      padding: 16px;
-      margin-top: 12px;
-      border: 1px solid #30363d;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+      max-width: 600px;
+      background: #151921;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-    }
-    .bet-section {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
     .bet-header {
       display: flex;
       justify-content: space-between;
-      font-size: 12px;
+      font-size: 11px;
       color: #8b949e;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
     }
     .bet-input-wrapper {
@@ -146,170 +127,153 @@
     }
     .bet-input {
       flex: 1;
-      background: #0d1117;
-      border: 1px solid #30363d;
+      background: #0b0e14;
+      border: 1px solid #2e3846;
       border-radius: 8px;
-      padding: 10px 14px;
+      padding: 8px 12px;
       color: #ffffff;
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 800;
       outline: none;
     }
-    .bet-input:focus {
-      border-color: #3498db;
+    .difficulty-select {
+      background: #0b0e14;
+      border: 1px solid #2e3846;
+      color: #fff;
+      padding: 8px;
+      border-radius: 8px;
+      font-weight: 700;
+      outline: none;
+      font-size: 13px;
+      width: 130px;
     }
     .bet-presets {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 6px;
+      gap: 5px;
     }
     .btn-preset {
-      background: #21262d;
-      border: 1px solid #30363d;
+      background: #1e2633;
+      border: 1px solid #2e3846;
       color: #c9d1d9;
       padding: 8px 0;
       border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 800;
       cursor: pointer;
-      transition: 0.15s;
+      text-align: center;
     }
-    .btn-preset:hover {
-      background: #30363d;
-      color: #fff;
-    }
-    .difficulty-select {
-      background: #0d1117;
-      border: 1px solid #30363d;
-      color: #fff;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: 700;
-      outline: none;
-      width: 100%;
+    .btn-preset:active {
+      background: #2b3648;
     }
     .action-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       margin-top: 4px;
     }
     .btn-main {
+      width: 100%;
       padding: 14px;
       border: none;
       border-radius: 10px;
       font-size: 16px;
-      font-weight: 800;
+      font-weight: 900;
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      transition: all 0.15s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     .btn-start {
       background: linear-gradient(135deg, #f39c12, #e67e22);
       color: #fff;
-      grid-column: span 2;
     }
-    .btn-start:hover { background: linear-gradient(135deg, #f1c40f, #f39c12); }
     .btn-step {
       background: linear-gradient(135deg, #3498db, #2980b9);
       color: #fff;
     }
-    .btn-step:hover { background: linear-gradient(135deg, #5dedc7, #3498db); }
     .btn-cashout {
       background: linear-gradient(135deg, #2ecc71, #27ae60);
       color: #fff;
     }
-    .btn-cashout:hover { background: linear-gradient(135deg, #40d47e, #2ecc71); }
-    .btn-main:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      filter: grayscale(80%);
-    }
 
-    /* Modal Overlay */
+    /* Modal Overlays */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 999;
-      backdrop-filter: blur(4px);
+      padding: 16px;
     }
     .modal-card {
-      background: #161b22;
-      border: 1px solid #30363d;
+      background: #151921;
+      border: 1px solid #2e3846;
       border-radius: 14px;
-      padding: 24px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      padding: 20px;
+      width: 100%;
+      max-width: 360px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
     .modal-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: #f39c12;
       text-align: center;
     }
     .modal-input {
-      background: #0d1117;
-      border: 1px solid #30363d;
+      background: #0b0e14;
+      border: 1px solid #2e3846;
       border-radius: 8px;
-      padding: 10px 14px;
+      padding: 10px;
       color: #fff;
-      font-size: 16px;
+      font-size: 15px;
       outline: none;
     }
     .modal-btns {
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
     .btn-modal {
       flex: 1;
       padding: 10px;
       border-radius: 8px;
       border: none;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
     }
     .btn-modal-confirm { background: #2ecc71; color: #fff; }
     .btn-modal-close { background: #e74c3c; color: #fff; }
 
-    /* Recovery Mini-Game Overlay */
     #miner-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(13, 17, 23, 0.95);
+      background: rgba(11, 14, 20, 0.95);
       display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 14px;
       z-index: 50;
       padding: 20px;
       text-align: center;
     }
-    .miner-title { font-size: 22px; font-weight: 900; color: #f1c40f; }
-    .miner-desc { font-size: 13px; color: #8b949e; max-width: 80%; }
+    .miner-title { font-size: 20px; font-weight: 900; color: #f1c40f; }
+    .miner-desc { font-size: 12px; color: #8b949e; }
     .btn-mine {
       background: linear-gradient(135deg, #e67e22, #d35400);
       color: #fff;
-      padding: 16px 32px;
-      border-radius: 50px;
-      font-size: 18px;
+      padding: 14px 24px;
+      border-radius: 30px;
+      font-size: 15px;
       font-weight: 900;
       border: none;
       cursor: pointer;
-      box-shadow: 0 0 20px rgba(230, 126, 34, 0.5);
-      transition: transform 0.1s;
     }
-    .btn-mine:active { transform: scale(0.95); }
   </style>
 </head>
 <body>
@@ -318,8 +282,8 @@
     <div class="logo-container">
       <div class="logo-icon">🐔</div>
       <div class="logo-text">
-        <h1>Chicken Road 2</h1>
-        <span>Ultra Deluxe Simulator</span>
+        <h1>CHICKEN ROAD 2</h1>
+        <span>Mobile Deluxe Edition</span>
       </div>
     </div>
     <div class="top-controls">
@@ -331,44 +295,42 @@
   </header>
 
   <div id="game-container">
-    <canvas id="gameCanvas" width="800" height="380"></canvas>
+    <canvas id="gameCanvas"></canvas>
     <div id="miner-overlay">
       <div class="miner-title">⛏️ ЗОЛОТА ШАХТА</div>
-      <div class="miner-desc">Твій баланс дорівнює $0. Видобувай золотисті фішки, щоб відновити банкрол!</div>
+      <div class="miner-desc">Ваш баланс $0! Натискайте кнопку, щоб видобути кошти для гри.</div>
       <button class="btn-mine" id="btn-mine-gold">ВИДОБУТИ $5,000,000 ⛏️</button>
-      <div id="miner-status" style="font-size: 14px; font-weight: 700; color: #2ecc71;"></div>
+      <div id="miner-status" style="font-size: 13px; font-weight: 700;"></div>
     </div>
   </div>
 
   <div class="controls-panel">
-    <div class="bet-section">
-      <div class="bet-header">
-        <span>Розмір ставки ($)</span>
-        <span id="ui-current-mult">Множник: 1.00x</span>
-      </div>
-      <div class="bet-input-wrapper">
-        <input type="text" id="bet-input" class="bet-input" value="1000">
-        <select id="difficulty-select" class="difficulty-select" style="width: 150px;">
-          <option value="easy">Легкий</option>
-          <option value="medium" selected>Середній</option>
-          <option value="hard">Важкий</option>
-          <option value="hardcore">Хардкор 💀</option>
-        </select>
-      </div>
-      <div class="bet-presets">
-        <button class="btn-preset" data-preset="min">МИН</button>
-        <button class="btn-preset" data-preset="half">1/2</button>
-        <button class="btn-preset" data-preset="2x">2x</button>
-        <button class="btn-preset" data-preset="10x">10x</button>
-        <button class="btn-preset" data-preset="1m">+1M</button>
-        <button class="btn-preset" data-preset="max">МАКС</button>
-      </div>
+    <div class="bet-header">
+      <span>Розмір ставки ($)</span>
+      <span id="ui-current-mult" style="color:#f39c12;">Множник: 1.00x</span>
+    </div>
+    <div class="bet-input-wrapper">
+      <input type="number" id="bet-input" class="bet-input" value="1000">
+      <select id="difficulty-select" class="difficulty-select">
+        <option value="easy">Легкий</option>
+        <option value="medium" selected>Середній</option>
+        <option value="hard">Важкий</option>
+        <option value="hardcore">Хардкор 💀</option>
+      </select>
+    </div>
+    <div class="bet-presets">
+      <button class="btn-preset" data-preset="min">МИН</button>
+      <button class="btn-preset" data-preset="half">1/2</button>
+      <button class="btn-preset" data-preset="2x">2x</button>
+      <button class="btn-preset" data-preset="10x">10x</button>
+      <button class="btn-preset" data-preset="1m">+1M</button>
+      <button class="btn-preset" data-preset="max">МАКС</button>
     </div>
 
     <div class="action-buttons">
       <button class="btn-main btn-start" id="btn-start">ПОЧАТИ ГРУ</button>
       <button class="btn-main btn-step" id="btn-step" style="display: none;">ЗРОБИТИ КРОК 🐾</button>
-      <button class="btn-main btn-cashout" id="btn-cashout" style="display: none;">ЗАБРАТИ ($0)</button>
+      <button class="btn-main btn-cashout" id="btn-cashout" style="display: none;">ЗАБРАТИ СТАВКУ</button>
     </div>
   </div>
 
@@ -377,11 +339,11 @@
     <div class="modal-card">
       <div class="modal-title">⚙️ АДМІН-ПАНЕЛЬ</div>
       <div id="admin-auth-sec">
-        <div style="font-size: 13px; color: #8b949e; margin-bottom: 6px;">Введіть секретний код доступу:</div>
+        <div style="font-size: 12px; color: #8b949e; margin-bottom: 6px;">Введіть пароль доступу:</div>
         <input type="password" id="admin-code-input" class="modal-input" placeholder="Код...">
       </div>
-      <div id="admin-panel-sec" style="display: none; flex-direction: column; gap: 12px;">
-        <div style="font-size: 13px; color: #8b949e;">Встановіть бажаний баланс ($):</div>
+      <div id="admin-panel-sec" style="display: none; flex-direction: column; gap: 10px;">
+        <div style="font-size: 12px; color: #8b949e;">Введіть суму балансу ($):</div>
         <input type="number" id="admin-balance-input" class="modal-input" value="1000000000">
       </div>
       <div class="modal-btns">
@@ -392,61 +354,52 @@
   </div>
 
   <script>
-    // --- Web Audio Synthesizer Engine ---
+    // Audio Synthesizer
     class SoundEngine {
-      constructor() {
-        this.ctx = null;
-      }
+      constructor() { this.ctx = null; }
       init() {
-        if (!this.ctx) {
-          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        }
+        if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        if (this.ctx.state === 'suspended') this.ctx.resume();
       }
       playStep() {
         if (!this.ctx) return;
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(300, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.08);
-        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+        osc.frequency.setValueAtTime(320, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(160, this.ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
         gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.08);
+        osc.start(); osc.stop(this.ctx.currentTime + 0.08);
       }
       playExplosion() {
         if (!this.ctx) return;
-        const bufferSize = this.ctx.sampleRate * 0.4;
-        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = Math.random() * 2 - 1;
-        }
-        const noise = this.ctx.createBufferSource();
-        noise.buffer = buffer;
+        const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        gain.gain.setValueAtTime(0.8, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.4);
-        noise.connect(gain);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 0.35);
+        gain.gain.setValueAtTime(0.5, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.35);
+        osc.connect(gain);
         gain.connect(this.ctx.destination);
-        noise.start();
+        osc.start(); osc.stop(this.ctx.currentTime + 0.35);
       }
       playWin() {
         if (!this.ctx) return;
-        const notes = [440, 554.37, 659.25, 880];
-        notes.forEach((freq, idx) => {
+        [440, 554, 659, 880].forEach((f, i) => {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, this.ctx.currentTime + idx * 0.08);
-          gain.gain.setValueAtTime(0.2, this.ctx.currentTime + idx * 0.08);
-          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + idx * 0.08 + 0.15);
+          osc.frequency.setValueAtTime(f, this.ctx.currentTime + i * 0.07);
+          gain.gain.setValueAtTime(0.2, this.ctx.currentTime + i * 0.07);
+          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + i * 0.07 + 0.12);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
-          osc.start(this.ctx.currentTime + idx * 0.08);
-          osc.stop(this.ctx.currentTime + idx * 0.08 + 0.15);
+          osc.start(this.ctx.currentTime + i * 0.07);
+          osc.stop(this.ctx.currentTime + i * 0.07 + 0.12);
         });
       }
       playMine() {
@@ -454,85 +407,91 @@
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'square';
-        osc.frequency.setValueAtTime(800, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(1200, this.ctx.currentTime + 0.06);
+        osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1000, this.ctx.currentTime + 0.06);
         gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
         gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.06);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.06);
+        osc.start(); osc.stop(this.ctx.currentTime + 0.06);
       }
     }
 
     const sound = new SoundEngine();
 
-    // --- Main Game Engine ---
+    // Game Core State
+    let balance = 1000000000;
+    let currentBet = 1000;
+    let gameState = 'IDLE'; // IDLE, PLAYING, CRASHED
+    let currentStep = 0;
+    const maxSteps = 10;
+    let vehicles = [];
+    let particles = [];
+    let viewWidth = 0;
+    let viewHeight = 0;
+
+    const diffConfigs = {
+      easy: { mults: [1.18, 1.42, 1.75, 2.15, 2.70, 3.50, 4.80, 6.80, 10.0, 16.0], speedScale: 0.9, density: 1 },
+      medium: { mults: [1.25, 1.60, 2.10, 2.80, 3.90, 5.50, 8.00, 12.0, 18.0, 30.0], speedScale: 1.4, density: 2 },
+      hard: { mults: [1.45, 2.10, 3.10, 4.70, 7.20, 11.5, 18.5, 30.0, 55.0, 100.0], speedScale: 2.0, density: 3 },
+      hardcore: { mults: [1.80, 3.20, 6.00, 12.0, 25.0, 55.0, 120.0, 280.0, 600.0, 1500.0], speedScale: 2.8, density: 4 }
+    };
+
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    // App State
-    let balance = 1000000000;
-    let currentBet = 1000;
-    let gameState = 'IDLE'; // IDLE, PLAYING, CRASHED, GAMEOVER
-    let currentStep = 0;
-    const maxSteps = 10;
-    let particles = [];
-    let vehicles = [];
+    // Dynamic Responsive Canvas Resizing
+    function resizeCanvas() {
+      const container = document.getElementById('game-container');
+      const dpr = window.devicePixelRatio || 1;
+      viewWidth = container.clientWidth;
+      viewHeight = container.clientHeight;
 
-    // Difficulty Multipliers Config
-    const diffConfigs = {
-      easy: { mults: [1.12, 1.28, 1.48, 1.72, 2.05, 2.50, 3.10, 4.00, 5.50, 8.00], speedScale: 1.0, density: 1 },
-      medium: { mults: [1.18, 1.46, 1.85, 2.35, 3.05, 4.10, 5.75, 8.20, 12.50, 20.00], speedScale: 1.5, density: 2 },
-      hard: { mults: [1.30, 1.80, 2.55, 3.70, 5.50, 8.50, 13.80, 23.00, 40.00, 75.00], speedScale: 2.2, density: 3 },
-      hardcore: { mults: [1.50, 2.40, 4.10, 7.20, 13.50, 26.00, 52.00, 110.00, 240.00, 500.00], speedScale: 3.0, density: 4 }
-    };
+      canvas.width = viewWidth * dpr;
+      canvas.height = viewHeight * dpr;
+      ctx.scale(dpr, dpr);
+    }
 
-    // Rendering Geometry Specs
-    const leftSidewalkWidth = 90;
-    const rightSidewalkWidth = 70;
-    const roadStartX = leftSidewalkWidth;
-    const roadEndX = canvas.width - rightSidewalkWidth;
-    const laneWidth = (roadEndX - roadStartX) / maxSteps;
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('orientationchange', () => setTimeout(resizeCanvas, 100));
 
-    // Vehicle Spawning Logic
-    function createVehicle(laneIdx) {
-      const config = diffConfigs[document.getElementById('difficulty-select').value];
-      const speed = (2 + Math.random() * 2.5) * config.speedScale;
-      const dir = laneIdx % 2 === 0 ? 1 : -1;
-      const types = ['car_red', 'car_blue', 'truck', 'police'];
-      const type = types[Math.floor(Math.random() * types.length)];
-      return {
-        lane: laneIdx,
-        x: roadStartX + laneIdx * laneWidth + laneWidth / 2,
-        y: dir === 1 ? -60 : canvas.height + 60,
-        speed: speed * dir,
-        type: type,
-        height: type === 'truck' ? 50 : 36,
-        width: 24
-      };
+    // Vehicle System
+    function getRoadParams() {
+      const leftSidewalk = 60;
+      const rightSidewalk = 50;
+      const roadWidth = viewWidth - leftSidewalk - rightSidewalk;
+      const laneWidth = roadWidth / maxSteps;
+      return { leftSidewalk, rightSidewalk, roadWidth, laneWidth };
     }
 
     function initVehicles() {
       vehicles = [];
+      const { leftSidewalk, laneWidth } = getRoadParams();
       const config = diffConfigs[document.getElementById('difficulty-select').value];
+
       for (let i = 0; i < maxSteps; i++) {
-        const count = Math.floor(1 + Math.random() * config.density);
+        const count = config.density;
+        const isDown = i % 2 === 0;
         for (let c = 0; c < count; c++) {
-          const v = createVehicle(i);
-          v.y = Math.random() * canvas.height;
-          vehicles.push(v);
+          const speed = (2.2 + Math.random() * 2.0) * config.speedScale * (isDown ? 1 : -1);
+          const types = ['police', 'truck', 'sport', 'sedan'];
+          vehicles.push({
+            lane: i,
+            x: leftSidewalk + i * laneWidth + laneWidth / 2,
+            y: Math.random() * viewHeight,
+            speed: speed,
+            type: types[Math.floor(Math.random() * types.length)]
+          });
         }
       }
     }
 
-    // Particle FX
     function spawnExplosion(x, y) {
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 30; i++) {
         particles.push({
           x: x, y: y,
-          vx: (Math.random() - 0.5) * 8,
-          vy: (Math.random() - 0.5) * 8,
+          vx: (Math.random() - 0.5) * 7,
+          vy: (Math.random() - 0.5) * 7,
           radius: 2 + Math.random() * 4,
           color: ['#e74c3c', '#f1c40f', '#ecf0f1', '#e67e22'][Math.floor(Math.random() * 4)],
           life: 1.0
@@ -540,207 +499,145 @@
       }
     }
 
-    function spawnWinParticles(x, y) {
-      for (let i = 0; i < 50; i++) {
+    function spawnWinFX(x, y) {
+      for (let i = 0; i < 35; i++) {
         particles.push({
           x: x, y: y,
-          vx: (Math.random() - 0.5) * 10,
-          vy: (Math.random() - 0.5) * 10,
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.5) * 8,
           radius: 3 + Math.random() * 3,
-          color: ['#2ecc71', '#f1c40f', '#3498db', '#9b59b6'][Math.floor(Math.random() * 4)],
-          life: 1.2
+          color: ['#2ecc71', '#f1c40f', '#3498db'][Math.floor(Math.random() * 3)],
+          life: 1.0
         });
       }
     }
 
-    // --- Drawing Engine ---
-    function drawEnvironment() {
-      // Background Grass/Sidewalk Left
+    // Render Scene
+    function render() {
+      ctx.clearRect(0, 0, viewWidth, viewHeight);
+      const { leftSidewalk, rightSidewalk, laneWidth } = getRoadParams();
+
+      // Left Sidewalk
       ctx.fillStyle = '#27ae60';
-      ctx.fillRect(0, 0, leftSidewalkWidth, canvas.height);
-      ctx.fillStyle = '#7f8c8d';
-      ctx.fillRect(leftSidewalkWidth - 10, 0, 10, canvas.height);
+      ctx.fillRect(0, 0, leftSidewalk, viewHeight);
+      ctx.fillStyle = '#95a5a6';
+      ctx.fillRect(leftSidewalk - 6, 0, 6, viewHeight);
 
-      // Background Grass/Sidewalk Right
+      // Right Sidewalk
       ctx.fillStyle = '#27ae60';
-      ctx.fillRect(roadEndX, 0, rightSidewalkWidth, canvas.height);
-      ctx.fillStyle = '#7f8c8d';
-      ctx.fillRect(roadEndX, 0, 10, canvas.height);
+      ctx.fillRect(viewWidth - rightSidewalk, 0, rightSidewalk, viewHeight);
+      ctx.fillStyle = '#95a5a6';
+      ctx.fillRect(viewWidth - rightSidewalk, 0, 6, viewHeight);
 
-      // Main Road Asphalt
-      ctx.fillStyle = '#34495e';
-      ctx.fillRect(roadStartX, 0, roadEndX - roadStartX, canvas.height);
+      // Main Road
+      ctx.fillStyle = '#2c3e50';
+      ctx.fillRect(leftSidewalk, 0, viewWidth - leftSidewalk - rightSidewalk, viewHeight);
 
-      // Lanes & Sewage Manhole Covers
+      // Lanes & Sewer Covers
       const diffKey = document.getElementById('difficulty-select').value;
       const mults = diffConfigs[diffKey].mults;
 
       for (let i = 0; i < maxSteps; i++) {
-        const laneX = roadStartX + i * laneWidth;
-        
-        // Lane Divider Line
+        const laneX = leftSidewalk + i * laneWidth;
+
         ctx.strokeStyle = 'rgba(255,255,255,0.2)';
-        ctx.setLineDash([10, 10]);
+        ctx.setLineDash([8, 8]);
         ctx.beginPath();
         ctx.moveTo(laneX, 0);
-        ctx.lineTo(laneX, canvas.height);
+        ctx.lineTo(laneX, viewHeight);
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Sewer Manhole (Step Target)
         const manholeX = laneX + laneWidth / 2;
-        const manholeY = canvas.height / 2;
+        const manholeY = viewHeight / 2;
 
-        ctx.fillStyle = (i < currentStep) ? '#2ecc71' : (i === currentStep && gameState === 'PLAYING' ? '#f1c40f' : '#2c3e50');
+        ctx.fillStyle = (i < currentStep) ? '#2ecc71' : (i === currentStep && gameState === 'PLAYING' ? '#f1c40f' : '#1a252f');
         ctx.beginPath();
-        ctx.arc(manholeX, manholeY, 22, 0, Math.PI * 2);
+        ctx.arc(manholeX, manholeY, 16, 0, Math.PI * 2);
         ctx.fill();
         ctx.strokeStyle = '#bdc3c7';
-        ctx.lineWidth = 3;
-        ctx.stroke();
-
-        // Multiplier Text on Cover
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 11px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText(mults[i] + 'x', manholeX, manholeY + 4);
-      }
-    }
-
-    function drawVehicles() {
-      vehicles.forEach(v => {
-        ctx.save();
-        ctx.translate(v.x, v.y);
-
-        if (v.type === 'police') {
-          ctx.fillStyle = '#2980b9';
-        } else if (v.type === 'truck') {
-          ctx.fillStyle = '#e67e22';
-        } else if (v.type === 'car_red') {
-          ctx.fillStyle = '#e74c3c';
-        } else {
-          ctx.fillStyle = '#9b59b6';
-        }
-
-        ctx.fillRect(-v.width / 2, -v.height / 2, v.width, v.height);
-        
-        // Headlights
-        ctx.fillStyle = '#f1c40f';
-        if (v.speed > 0) {
-          ctx.fillRect(-v.width / 2 + 2, v.height / 2 - 2, 5, 4);
-          ctx.fillRect(v.width / 2 - 7, v.height / 2 - 2, 5, 4);
-        } else {
-          ctx.fillRect(-v.width / 2 + 2, -v.height / 2 - 2, 5, 4);
-          ctx.fillRect(v.width / 2 - 7, -v.height / 2 - 2, 5, 4);
-        }
-
-        ctx.restore();
-      });
-    }
-
-    function drawChicken() {
-      let targetX = leftSidewalkWidth / 2;
-      let targetY = canvas.height / 2;
-
-      if (currentStep > 0) {
-        targetX = roadStartX + (currentStep - 0.5) * laneWidth;
-      }
-
-      ctx.save();
-      ctx.translate(targetX, targetY);
-
-      if (gameState !== 'CRASHED') {
-        // Body
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(0, 0, 16, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.strokeStyle = '#d5dbdb';
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Comb (Hat)
-        ctx.fillStyle = '#e74c3c';
-        ctx.beginPath();
-        ctx.arc(0, -14, 5, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Beak
-        ctx.fillStyle = '#f39c12';
-        ctx.beginPath();
-        ctx.moveTo(8, -2);
-        ctx.lineTo(16, 2);
-        ctx.lineTo(8, 6);
-        ctx.fill();
-
-        // Eye
-        ctx.fillStyle = '#2c3e50';
-        ctx.beginPath();
-        ctx.arc(4, -4, 2.5, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 9px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(mults[i] + 'x', manholeX, manholeY + 3);
       }
 
-      ctx.restore();
-    }
-
-    function drawParticles() {
-      particles.forEach((p, index) => {
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.life;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1.0;
-
-        p.x += p.vx;
-        p.y += p.vy;
-        p.life -= 0.02;
-
-        if (p.life <= 0) {
-          particles.splice(index, 1);
-        }
-      });
-    }
-
-    // Main Animation Loop
-    function updatePhysics() {
-      if (gameState === 'PLAYING') {
-        vehicles.forEach(v => {
+      // Vehicles Physics & Render
+      vehicles.forEach(v => {
+        if (gameState === 'PLAYING') {
           v.y += v.speed;
-          if (v.speed > 0 && v.y > canvas.height + 60) v.y = -60;
-          if (v.speed < 0 && v.y < -60) v.y = canvas.height + 60;
+          if (v.speed > 0 && v.y > viewHeight + 40) v.y = -40;
+          if (v.speed < 0 && v.y < -40) v.y = viewHeight + 40;
 
-          // Collision Check
-          if (currentStep > 0) {
-            const chickenX = roadStartX + (currentStep - 0.5) * laneWidth;
-            const chickenY = canvas.height / 2;
-
-            const dx = Math.abs(v.x - chickenX);
+          // Check Collision
+          if (currentStep > 0 && v.lane === (currentStep - 1)) {
+            const chickenX = leftSidewalk + (currentStep - 0.5) * laneWidth;
+            const chickenY = viewHeight / 2;
             const dy = Math.abs(v.y - chickenY);
-
-            if (dx < 20 && dy < 25) {
-              // Hit!
+            if (dy < 22) {
               gameState = 'CRASHED';
               sound.playExplosion();
               spawnExplosion(chickenX, chickenY);
               endGame(false);
             }
           }
-        });
+        }
+
+        // Draw Car
+        ctx.save();
+        ctx.translate(v.x, v.y);
+        ctx.fillStyle = v.type === 'police' ? '#2980b9' : (v.type === 'truck' ? '#e67e22' : '#e74c3c');
+        ctx.fillRect(-10, -18, 20, 36);
+        ctx.fillStyle = '#f1c40f';
+        ctx.fillRect(-8, v.speed > 0 ? 14 : -18, 4, 4);
+        ctx.fillRect(4, v.speed > 0 ? 14 : -18, 4, 4);
+        ctx.restore();
+      });
+
+      // Particles
+      particles.forEach((p, idx) => {
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.life;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+        p.x += p.vx; p.y += p.vy; p.life -= 0.03;
+        if (p.life <= 0) particles.splice(idx, 1);
+      });
+
+      // Chicken Character
+      if (gameState !== 'CRASHED') {
+        let chickenX = leftSidewalk / 2;
+        if (currentStep > 0) {
+          chickenX = leftSidewalk + (currentStep - 0.5) * laneWidth;
+        }
+        const chickenY = viewHeight / 2;
+
+        ctx.save();
+        ctx.translate(chickenX, chickenY);
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(0, 0, 12, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#e74c3c';
+        ctx.beginPath();
+        ctx.arc(0, -10, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#f39c12';
+        ctx.beginPath();
+        ctx.moveTo(6, -2); ctx.lineTo(12, 0); ctx.lineTo(6, 4);
+        ctx.fill();
+        ctx.restore();
       }
+
+      requestAnimationFrame(render);
     }
 
-    function renderFrame() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawEnvironment();
-      drawVehicles();
-      drawChicken();
-      drawParticles();
-      updatePhysics();
-      requestAnimationFrame(renderFrame);
-    }
-
-    // --- UI & Controls Handling ---
+    // Controls
     function formatMoney(num) {
       return num.toLocaleString('en-US');
     }
@@ -757,10 +654,9 @@
         document.getElementById('btn-cashout').innerText = `ЗАБРАТИ ($${formatMoney(winVal)})`;
       } else {
         document.getElementById('ui-current-mult').innerText = `Множник: 1.00x`;
-        document.getElementById('btn-cashout').innerText = `ЗАБРАТИ ($0)`;
+        document.getElementById('btn-cashout').innerText = `ЗАБРАТИ СТАВКУ`;
       }
 
-      // Zero Balance Recovery Check
       if (balance <= 0 && gameState === 'IDLE') {
         document.getElementById('miner-overlay').style.display = 'flex';
       } else {
@@ -770,38 +666,31 @@
 
     function startGame() {
       sound.init();
-      const inputVal = parseInt(document.getElementById('bet-input').value.replace(/,/g, '')) || 0;
-      if (inputVal <= 0 || inputVal > balance) {
-        alert('Недійсна ставка!');
+      const val = parseInt(document.getElementById('bet-input').value) || 0;
+      if (val <= 0 || val > balance) {
+        alert('Вкажіть правильну суму!');
         return;
       }
-
-      currentBet = inputVal;
+      currentBet = val;
       balance -= currentBet;
       currentStep = 0;
       gameState = 'PLAYING';
 
       initVehicles();
-
       document.getElementById('btn-start').style.display = 'none';
       document.getElementById('btn-step').style.display = 'block';
       document.getElementById('btn-cashout').style.display = 'block';
-      document.getElementById('btn-cashout').disabled = true;
-      document.getElementById('difficulty-select').disabled = true;
-      document.getElementById('bet-input').disabled = true;
-
+      document.getElementById('btn-cashout').style.opacity = '0.5';
       updateUI();
     }
 
     function makeStep() {
       if (gameState !== 'PLAYING') return;
-
       currentStep++;
       sound.playStep();
-      document.getElementById('btn-cashout').disabled = false;
+      document.getElementById('btn-cashout').style.opacity = '1';
 
       if (currentStep >= maxSteps) {
-        // Auto cashout on reaching destination
         cashOut();
       } else {
         updateUI();
@@ -810,17 +699,14 @@
 
     function cashOut() {
       if (gameState !== 'PLAYING' || currentStep === 0) return;
-
       const diffKey = document.getElementById('difficulty-select').value;
       const curMult = diffConfigs[diffKey].mults[currentStep - 1];
-      const winnings = Math.floor(currentBet * curMult);
-
-      balance += winnings;
+      const winVal = Math.floor(currentBet * curMult);
+      balance += winVal;
       sound.playWin();
 
-      const chickenX = roadStartX + (currentStep - 0.5) * laneWidth;
-      spawnWinParticles(chickenX, canvas.height / 2);
-
+      const { leftSidewalk, laneWidth } = getRoadParams();
+      spawnWinFX(leftSidewalk + (currentStep - 0.5) * laneWidth, viewHeight / 2);
       endGame(true);
     }
 
@@ -829,21 +715,14 @@
       document.getElementById('btn-start').style.display = 'block';
       document.getElementById('btn-step').style.display = 'none';
       document.getElementById('btn-cashout').style.display = 'none';
-      document.getElementById('difficulty-select').disabled = false;
-      document.getElementById('bet-input').disabled = false;
       updateUI();
     }
 
-    // --- Event Listeners ---
-    document.getElementById('btn-start').addEventListener('click', startGame);
-    document.getElementById('btn-step').addEventListener('click', makeStep);
-    document.getElementById('btn-cashout').addEventListener('click', cashOut);
-
-    // Bet Presets
+    // Preset Bets
     document.querySelectorAll('.btn-preset').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const type = e.target.dataset.preset;
-        let val = parseInt(document.getElementById('bet-input').value.replace(/,/g, '')) || 0;
+        let val = parseInt(document.getElementById('bet-input').value) || 0;
         if (type === 'min') val = 100;
         if (type === 'half') val = Math.floor(balance / 2);
         if (type === '2x') val = val * 2;
@@ -853,18 +732,16 @@
 
         if (val > balance) val = balance;
         if (val < 1) val = 1;
-
         document.getElementById('bet-input').value = val;
       });
     });
 
-    // Admin Panel Logic (Code: 152429)
+    // Admin Panel (Code: 152429)
     const adminModal = document.getElementById('admin-modal');
     document.getElementById('btn-open-admin').addEventListener('click', () => {
       adminModal.style.display = 'flex';
       document.getElementById('admin-auth-sec').style.display = 'block';
       document.getElementById('admin-panel-sec').style.display = 'none';
-      document.getElementById('admin-code-input').value = '';
     });
 
     document.getElementById('btn-admin-close').addEventListener('click', () => {
@@ -874,47 +751,40 @@
     document.getElementById('btn-admin-submit').addEventListener('click', () => {
       const authSec = document.getElementById('admin-auth-sec');
       const panelSec = document.getElementById('admin-panel-sec');
-
       if (authSec.style.display !== 'none') {
-        const code = document.getElementById('admin-code-input').value;
-        if (code === '152429') {
+        if (document.getElementById('admin-code-input').value === '152429') {
           authSec.style.display = 'none';
           panelSec.style.display = 'flex';
         } else {
-          alert('Невірний код доступу!');
+          alert('Невірний код!');
         }
       } else {
-        const newBal = parseInt(document.getElementById('admin-balance-input').value) || 0;
-        balance = newBal;
+        balance = parseInt(document.getElementById('admin-balance-input').value) || 0;
         updateUI();
         adminModal.style.display = 'none';
-        alert('Баланс успішно змінено!');
       }
     });
 
-    // Gold Miner Recovery Mini-Game
+    // Gold Miner Mini Game
     document.getElementById('btn-mine-gold').addEventListener('click', () => {
       sound.init();
       sound.playMine();
-      const success = Math.random() < 0.65;
-      const statusEl = document.getElementById('miner-status');
-
-      if (success) {
-        balance += 5000000;
-        statusEl.style.color = '#2ecc71';
-        statusEl.innerText = 'Успішно! Знайдено +$5,000,000!';
-      } else {
-        statusEl.style.color = '#e74c3c';
-        statusEl.innerText = 'Невдача... Спробуйте ще раз!';
-      }
-
+      balance += 5000000;
+      document.getElementById('miner-status').innerText = 'Отримано +$5,000,000!';
       updateUI();
-    }
+    });
 
-    // Init Engine
-    initVehicles();
-    renderFrame();
-    updateUI();
+    document.getElementById('btn-start').addEventListener('click', startGame);
+    document.getElementById('btn-step').addEventListener('click', makeStep);
+    document.getElementById('btn-cashout').addEventListener('click', cashOut);
+
+    // Initial Launch
+    window.addEventListener('load', () => {
+      resizeCanvas();
+      initVehicles();
+      updateUI();
+      requestAnimationFrame(render);
+    });
   </script>
 </body>
 </html>
