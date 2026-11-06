@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Chicken Road Deluxe Unlimited</title>
+    <title>Chicken Road 2 Deluxe Unlimited</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -19,9 +19,9 @@
                         display: ['Fredoka', 'sans-serif']
                     },
                     colors: {
-                        gameBg: '#0b0c10',
-                        panelBg: '#15171e',
-                        cardBg: '#1f222d',
+                        gameBg: '#07080a',
+                        panelBg: '#121319',
+                        cardBg: '#1c1e27',
                         accentGold: '#fbbf24',
                         accentGreen: '#10b981',
                         accentRed: '#f43f5e'
@@ -31,42 +31,48 @@
         }
     </script>
     <style>
-        body {
-            background-color: #07080a;
-            color: #ffffff;
-            touch-action: manipulation;
+        * {
+            box-sizing: border-box;
             user-select: none;
             -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+        body {
+            background-color: #050608;
+            color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
         ::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
         }
         ::-webkit-scrollbar-track {
-            background: #0d0e12;
+            background: #090a0f;
         }
         ::-webkit-scrollbar-thumb {
-            background: #2a2c36;
-            border-radius: 4px;
+            background: #252836;
+            border-radius: 5px;
         }
 
         .glow-gold {
-            box-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.45);
         }
         .glow-green {
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.45);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.55);
+        }
+        .glow-red {
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.45);
         }
 
         .shake {
-            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+            animation: shake 0.45s cubic-bezier(.36,.07,.19,.97) both;
         }
         @keyframes shake {
-            10%, 90% { transform: translate3d(-2px, 0, 0); }
-            20%, 80% { transform: translate3d(4px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
-            40%, 60% { transform: translate3d(6px, 0, 0); }
+            10%, 90% { transform: translate3d(-3px, 0, 0); }
+            20%, 80% { transform: translate3d(5px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-7px, 0, 0); }
+            40%, 60% { transform: translate3d(7px, 0, 0); }
         }
 
         .canvas-container {
@@ -74,7 +80,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: radial-gradient(circle at center, #1a2332 0%, #0d0e12 100%);
+            background: radial-gradient(circle at center, #151d2a 0%, #08090d 100%);
         }
 
         input[type=number]::-webkit-inner-spin-button, 
@@ -85,171 +91,180 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
+
+        .btn-pulse {
+            animation: pulse-glow 1.8s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.8); }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between items-center bg-[#07080a]">
+<body class="min-h-screen flex flex-col justify-between items-center bg-[#050608]">
 
-    <!-- Головний екран гри -->
-    <div id="gameWrapper" class="w-full max-w-md sm:max-w-lg min-h-screen flex flex-col bg-[#0d0e12] shadow-2xl relative border-x border-slate-800/80">
+    <!-- Головний оболонка симулятора -->
+    <div id="gameWrapper" class="w-full max-w-md sm:max-w-xl min-h-screen flex flex-col bg-[#090a0f] shadow-2xl relative border-x border-slate-800/80">
         
-        <!-- Шапка гри -->
-        <header class="w-full bg-[#121319] px-4 py-3 flex items-center justify-between border-b border-slate-800/70 z-30">
-            <div class="flex items-center gap-2">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 font-black flex items-center justify-center text-xl shadow-lg shadow-amber-500/20">
+        <!-- Шапка гри з балансом -->
+        <header class="w-full bg-[#10121a] px-4 py-3 flex items-center justify-between border-b border-slate-800/80 z-30 shadow-md">
+            <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 font-black flex items-center justify-center text-2xl shadow-lg shadow-amber-500/25">
                     🐔
                 </div>
                 <div>
-                    <span class="text-lg font-extrabold font-display tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent block leading-none">
-                        CHICKEN<span class="text-amber-400">ROAD</span>
+                    <span class="text-xl font-black font-display tracking-tight bg-gradient-to-r from-white via-slate-100 to-amber-300 bg-clip-text text-transparent block leading-none">
+                        CHICKEN<span class="text-amber-400">2</span>ROAD
                     </span>
-                    <span class="text-[9px] font-bold tracking-widest text-emerald-400 uppercase">СИМУЛЯТОР ДЕМО</span>
+                    <span class="text-[9px] font-black tracking-widest text-emerald-400 uppercase">СИМУЛЯТОР ДЕМО 2.0</span>
                 </div>
             </div>
 
             <!-- Баланс -->
-            <div class="flex items-center bg-[#1c1e27] border border-amber-500/30 rounded-2xl px-3.5 py-1.5 shadow-inner">
+            <div class="flex items-center bg-[#181a24] border border-amber-500/40 rounded-2xl px-3.5 py-1.5 shadow-inner">
                 <div class="flex flex-col text-right mr-2">
-                    <span class="text-[9px] text-slate-400 uppercase font-semibold">Віртуальний баланс</span>
-                    <span id="balanceDisplay" class="font-extrabold text-white text-sm tracking-wide">$1,000,000,000</span>
+                    <span class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider">Віртуальний баланс</span>
+                    <span id="balanceDisplay" class="font-black text-white text-base tracking-wide">$1,000,000,000</span>
                 </div>
-                <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 font-black text-xs flex items-center justify-center shadow">
+                <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 font-black text-xs flex items-center justify-center shadow-md">
                     $
                 </div>
             </div>
 
-            <!-- Звук та кнопка Шахти -->
+            <!-- Кнопки звуку та шахти -->
             <div class="flex items-center gap-1.5">
-                <button id="soundToggleBtn" onclick="toggleAudio()" class="w-9 h-9 rounded-xl bg-[#1c1e27] border border-slate-700/60 text-slate-300 hover:text-white flex items-center justify-center text-xs transition-all">
+                <button id="soundToggleBtn" onclick="toggleAudio()" class="w-9 h-9 rounded-xl bg-[#181a24] border border-slate-700/60 text-slate-300 hover:text-white flex items-center justify-center text-xs transition-all">
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
-                <button onclick="openMineModal()" class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/40 text-amber-400 hover:bg-amber-500/20 flex items-center justify-center text-xs transition-all" title="Золота Шахта">
+                <button onclick="openMineModal()" class="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/50 text-amber-400 hover:bg-amber-500/25 flex items-center justify-center text-sm transition-all shadow-sm" title="Золота Шахта">
                     ⛏️
                 </button>
             </div>
         </header>
 
-        <!-- Інформаційний рядок -->
-        <div class="w-full bg-[#0a0b0e] px-4 py-1.5 flex justify-between items-center text-[11px] border-b border-slate-800/40 text-slate-400 z-20">
+        <!-- Інформаційна панель результатів онлайн -->
+        <div class="w-full bg-[#0c0d13] px-4 py-2 flex justify-between items-center text-[11px] border-b border-slate-800/50 text-slate-400 z-20">
             <div class="flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
-                <span>Гравців онлайн: <b id="onlineCounter" class="text-slate-200">12 430</b></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+                <span>Гравців: <b id="onlineCounter" class="text-slate-200 font-bold">14 210</b></span>
             </div>
-            <div id="liveTicker" class="truncate max-w-[220px] text-right font-medium text-emerald-400">
-                <span class="text-slate-400">Останній виграш:</span> Гравець_UA <span class="text-emerald-400 font-bold">+$50,000.00</span>
+            <div id="liveTicker" class="truncate max-w-[240px] text-right font-semibold text-emerald-400">
+                <span class="text-slate-400">Останній виграш:</span> Гравець_UA <span class="text-emerald-400 font-bold">+$120,500.00</span>
             </div>
         </div>
 
-        <!-- Ігрове поле Canvas -->
-        <div class="flex-1 relative w-full min-h-[360px] sm:min-h-[420px] canvas-container flex flex-col justify-end">
+        <!-- Поле Canvas (Горизонтальний рух зліва направо) -->
+        <div class="flex-1 relative w-full min-h-[380px] sm:min-h-[440px] canvas-container flex flex-col justify-center items-center">
             <canvas id="gameCanvas" class="w-full h-full block cursor-pointer"></canvas>
 
-            <!-- Модальне вікно результату раунду -->
-            <div id="statusOverlay" class="absolute inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none z-30">
-                <div id="statusBox" class="bg-[#1c1e27] border border-slate-700/80 p-6 rounded-3xl text-center max-w-xs shadow-2xl transform scale-90 transition-all">
+            <!-- Результат раунду overlay -->
+            <div id="statusOverlay" class="absolute inset-0 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none z-30">
+                <div id="statusBox" class="bg-[#181a24] border border-slate-700/80 p-6 rounded-3xl text-center max-w-xs shadow-2xl transform scale-90 transition-all w-full">
                     <div id="statusEmoji" class="text-6xl mb-3 animate-bounce">💥</div>
                     <h3 id="statusTitle" class="text-2xl font-black text-white mb-1">АВАРІЯ!</h3>
                     <p id="statusDesc" class="text-xs text-slate-300 mb-5">Курка потрапила під авто.</p>
-                    <button onclick="dismissStatusOverlay()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wide transition-all shadow-lg glow-green">
+                    <button onclick="dismissStatusOverlay()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wide transition-all shadow-lg glow-green">
                         ПРОДОВЖИТИ
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Панель керування та ставок -->
-        <div class="w-full bg-[#121319] p-4 border-t border-slate-800/80 z-20 space-y-3">
+        <!-- Панель ставок та управління -->
+        <div class="w-full bg-[#10121a] p-4 border-t border-slate-800/80 z-20 space-y-3 shadow-2xl">
             
-            <!-- Розмір ставки -->
+            <!-- Поле вводу суми ставки -->
             <div class="space-y-1.5">
-                <div class="flex items-center justify-between text-xs text-slate-400 px-1 font-semibold">
-                    <span>РОЗМІР СТАВКИ ($)</span>
-                    <span id="betValueFormatted" class="text-amber-400 font-extrabold">$200</span>
+                <div class="flex items-center justify-between text-xs text-slate-400 px-1 font-bold">
+                    <span>СУМА СТАВКИ ($)</span>
+                    <span id="betValueFormatted" class="text-amber-400 font-black">$200</span>
                 </div>
-                <div class="bg-[#1c1e27] border border-slate-700/60 rounded-2xl p-1.5 flex items-center justify-between shadow-inner">
-                    <button onclick="setBetMin()" class="bg-[#2a2c38] hover:bg-[#343644] active:scale-95 text-slate-300 font-bold text-xs px-3 py-2 rounded-xl transition-all">
+                <div class="bg-[#181a24] border border-slate-700/60 rounded-2xl p-1.5 flex items-center justify-between shadow-inner">
+                    <button onclick="setBetMin()" class="bg-[#242735] hover:bg-[#2e3244] active:scale-95 text-slate-300 font-black text-xs px-3.5 py-2.5 rounded-xl transition-all">
                         МНІ
                     </button>
                     
-                    <div class="flex-1 px-2 text-center flex items-center justify-center">
-                        <input type="number" id="betInput" value="200" oninput="onBetInputChange()" class="w-full bg-transparent text-center font-black text-white text-lg focus:outline-none" placeholder="200">
+                    <div class="flex-1 px-2 text-center">
+                        <input type="number" id="betInput" value="200" oninput="onBetInputChange()" class="w-full bg-transparent text-center font-black text-white text-xl focus:outline-none" placeholder="200">
                     </div>
 
-                    <button onclick="setBetMax()" class="bg-[#2a2c38] hover:bg-[#343644] active:scale-95 text-amber-400 font-extrabold text-xs px-3 py-2 rounded-xl transition-all">
+                    <button onclick="setBetMax()" class="bg-[#242735] hover:bg-[#2e3244] active:scale-95 text-amber-400 font-black text-xs px-3.5 py-2.5 rounded-xl transition-all">
                         МАКС
                     </button>
                 </div>
             </div>
 
-            <!-- Швидкі кнопки підрахунку -->
+            <!-- Швидкі кнопки розрахунку суми -->
             <div class="grid grid-cols-5 gap-1.5">
-                <button onclick="multiplyBet(0.5)" class="bg-[#1c1e27] hover:bg-[#252733] active:scale-95 text-slate-300 font-extrabold text-xs py-2 rounded-xl border border-slate-700/40">
+                <button onclick="multiplyBet(0.5)" class="bg-[#181a24] hover:bg-[#222533] active:scale-95 text-slate-300 font-black text-xs py-2 rounded-xl border border-slate-700/40">
                     ½
                 </button>
-                <button onclick="multiplyBet(2)" class="bg-[#1c1e27] hover:bg-[#252733] active:scale-95 text-slate-300 font-extrabold text-xs py-2 rounded-xl border border-slate-700/40">
+                <button onclick="multiplyBet(2)" class="bg-[#181a24] hover:bg-[#222533] active:scale-95 text-slate-300 font-black text-xs py-2 rounded-xl border border-slate-700/40">
                     2x
                 </button>
-                <button onclick="multiplyBet(10)" class="bg-[#1c1e27] hover:bg-[#252733] active:scale-95 text-slate-300 font-extrabold text-xs py-2 rounded-xl border border-slate-700/40">
+                <button onclick="multiplyBet(10)" class="bg-[#181a24] hover:bg-[#222533] active:scale-95 text-slate-300 font-black text-xs py-2 rounded-xl border border-slate-700/40">
                     10x
                 </button>
-                <button onclick="addPresetBet(1000000)" class="bg-[#1c1e27] hover:bg-[#252733] active:scale-95 text-cyan-400 font-extrabold text-xs py-2 rounded-xl border border-slate-700/40">
+                <button onclick="addPresetBet(1000000)" class="bg-[#181a24] hover:bg-[#222533] active:scale-95 text-cyan-400 font-black text-xs py-2 rounded-xl border border-slate-700/40">
                     +1M
                 </button>
-                <button onclick="addPresetBet(1000000000)" class="bg-[#1c1e27] hover:bg-[#252733] active:scale-95 text-amber-400 font-extrabold text-xs py-2 rounded-xl border border-slate-700/40">
+                <button onclick="addPresetBet(1000000000)" class="bg-[#181a24] hover:bg-[#222533] active:scale-95 text-amber-400 font-black text-xs py-2 rounded-xl border border-slate-700/40">
                     +1B
                 </button>
             </div>
 
-            <!-- Вибір складності -->
+            <!-- Рівень складності -->
             <div class="relative">
-                <select id="diffSelect" onchange="changeDifficulty(this.value)" class="w-full bg-[#1c1e27] border border-slate-700/60 rounded-2xl py-2.5 px-4 text-white font-extrabold text-sm appearance-none focus:outline-none cursor-pointer">
-                    <option value="easy">🌱 Легкий (Мінімальний ризик)</option>
-                    <option value="medium">⚡ Середній (Баланс ризику)</option>
-                    <option value="hard" selected>🔥 Складний (Високий множник)</option>
-                    <option value="hardcore">💀 Хардкор (Екстремальний множник)</option>
+                <select id="diffSelect" onchange="changeDifficulty(this.value)" class="w-full bg-[#181a24] border border-slate-700/60 rounded-2xl py-3 px-4 text-white font-black text-sm appearance-none focus:outline-none cursor-pointer">
+                    <option value="easy">🌱 Easy (Легкий трафік, малий ризик)</option>
+                    <option value="medium">⚡ Medium (Баланс трафіку та коефіцієнтів)</option>
+                    <option value="hard" selected>🔥 Hard (Висока швидкість авто)</option>
+                    <option value="hardcore">💀 Hardcore (Екстремальний потік авто)</option>
                 </select>
                 <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                     <i class="fa-solid fa-chevron-down text-xs"></i>
                 </div>
             </div>
 
-            <!-- Кнопки дій -->
+            <!-- Головні кнопки гри -->
             <div class="space-y-2">
-                <!-- Старт або Крок -->
-                <button id="startGameBtn" onclick="startGame()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 active:scale-[0.98] text-slate-950 font-black text-xl tracking-wide shadow-lg shadow-amber-500/25 transition-all flex items-center justify-center gap-2 glow-gold">
+                <!-- Старт -->
+                <button id="startGameBtn" onclick="startGame()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-300 hover:from-amber-400 hover:to-yellow-200 active:scale-[0.98] text-slate-950 font-black text-2xl tracking-wide shadow-xl shadow-amber-500/25 transition-all flex items-center justify-center gap-2 glow-gold">
                     ПОЧАТИ ГРУ
                 </button>
 
-                <button id="stepBtn" onclick="makeStep()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 active:scale-[0.98] text-white font-black text-xl tracking-wide shadow-lg shadow-cyan-500/25 transition-all hidden flex items-center justify-center gap-2">
+                <!-- Зробити крок -->
+                <button id="stepBtn" onclick="makeStep()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 active:scale-[0.98] text-white font-black text-2xl tracking-wide shadow-xl shadow-cyan-500/25 transition-all hidden flex items-center justify-center gap-2">
                     ЗРОБИТИ КРОК 🐾
                 </button>
 
-                <!-- Окрема кнопка Cash Out -->
-                <button id="cashoutButton" onclick="cashOut()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 active:scale-[0.98] text-slate-950 font-black text-2xl tracking-wide shadow-lg shadow-emerald-500/25 transition-all hidden flex items-center justify-center gap-2 glow-green">
+                <!-- Окрема зелена кнопка Cash Out -->
+                <button id="cashoutButton" onclick="cashOut()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-300 hover:from-emerald-400 hover:to-teal-200 active:scale-[0.98] text-slate-950 font-black text-2xl tracking-wide shadow-xl shadow-emerald-500/30 transition-all hidden flex items-center justify-center gap-2 glow-green btn-pulse">
                     <span id="cashoutBtnText">ЗАБРАТИ СТАВКУ ($0)</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Міні-гра "Золота Шахта" при банкрутстві -->
-    <div id="bankruptModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-lg flex items-center justify-center p-4 hidden">
-        <div class="bg-[#1c1e27] border border-amber-500/40 max-w-sm w-full rounded-3xl p-6 text-center space-y-4 shadow-2xl">
+    <!-- Модальне вікно Міні-гри "Золота Шахта" -->
+    <div id="bankruptModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="bg-[#181a24] border border-amber-500/50 max-w-sm w-full rounded-3xl p-6 text-center space-y-4 shadow-2xl">
             <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border-2 border-amber-500 text-amber-400 text-3xl flex items-center justify-center mx-auto animate-pulse shadow-lg glow-gold">
                 ⛏️
             </div>
             <div>
                 <h3 class="text-2xl font-black text-white">ЗОЛОТА ШАХТА</h3>
-                <p class="text-xs text-slate-400 mt-1">Ви програли всі гроші! Бійте по породі, щоб видобути новий капітал.</p>
+                <p class="text-xs text-slate-300 mt-1">Ви втратили весь капітал! Натискайте на кам'яну породу, щоб видобути новий баланс.</p>
             </div>
 
-            <div id="mineTarget" onclick="tapMineGold(event)" class="bg-[#121319] border-2 border-dashed border-amber-500/60 hover:border-amber-400 rounded-3xl p-8 cursor-pointer active:scale-95 transition-all group relative overflow-hidden">
+            <div id="mineTarget" onclick="tapMineGold(event)" class="bg-[#0f1017] border-2 border-dashed border-amber-500/70 hover:border-amber-400 rounded-3xl p-8 cursor-pointer active:scale-95 transition-all group relative overflow-hidden">
                 <div id="mineIcon" class="text-6xl group-hover:scale-110 transition-transform mb-2">💎</div>
-                <div class="text-xs font-black text-amber-400 uppercase tracking-widest">НАТИСНІТЬ СУДИ ДЛЯ УДАРУ!</div>
-                <div class="text-[10px] text-slate-400 mt-1">Шанс знахідки: 65% | До +$250,000,000 за удар</div>
+                <div class="text-xs font-black text-amber-400 uppercase tracking-widest">УДАРИТИ КІРКОЮ!</div>
+                <div class="text-[10px] text-slate-400 mt-1">Шанс успіху: 65% | До +$5,000,000 за удар</div>
             </div>
 
-            <div id="mineFeedback" class="text-xs font-bold min-h-[16px] text-slate-300">
-                Добудьте самоцвіти!
+            <div id="mineFeedback" class="text-xs font-bold min-h-[18px] text-slate-300">
+                Видобудьте нові фішки!
             </div>
 
             <button id="closeMineBtn" onclick="closeMineModal()" disabled class="w-full py-3.5 rounded-2xl bg-slate-800 text-slate-500 font-black text-xs transition-all">
@@ -258,8 +273,9 @@
         </div>
     </div>
 
-    <!-- Двигун гри на JavaScript -->
+    <!-- ПОВНИЙ ДВИГУН ГРИ НА JAVASCRIPT -->
     <script>
+        /* Глобальний стан та параметри */
         let balance = 1000000000;
         let bet = 200;
         let difficulty = 'hard';
@@ -271,15 +287,46 @@
         let particles = [];
         let audioEnabled = true;
         let animTick = 0;
+        let canvas, ctx;
+        let cameraX = 0;
 
+        /* Налаштування режимів складності */
         const diffSettings = {
-            easy: { safeProb: 0.92, base: 1.12, inc: 0.15 },
-            medium: { safeProb: 0.80, base: 1.25, inc: 0.35 },
-            hard: { safeProb: 0.65, base: 1.50, inc: 0.70 },
-            hardcore: { safeProb: 0.45, base: 2.25, inc: 1.60 }
+            easy: { 
+                safeProb: 0.90, 
+                baseMult: 1.18, 
+                incMult: 0.22,
+                speedMin: 1.8,
+                speedMax: 3.2,
+                density: 2
+            },
+            medium: { 
+                safeProb: 0.78, 
+                baseMult: 1.46, 
+                incMult: 0.45,
+                speedMin: 3.0,
+                speedMax: 5.2,
+                density: 3
+            },
+            hard: { 
+                safeProb: 0.62, 
+                baseMult: 1.85, 
+                incMult: 0.85,
+                speedMin: 4.5,
+                speedMax: 7.5,
+                density: 4
+            },
+            hardcore: { 
+                safeProb: 0.42, 
+                baseMult: 2.75, 
+                incMult: 1.95,
+                speedMin: 6.5,
+                speedMax: 11.0,
+                density: 5
+            }
         };
 
-        /* Web Audio API */
+        /* Web Audio API Синтезатор */
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx = null;
 
@@ -306,46 +353,43 @@
 
                 if (type === 'step') {
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(320, now);
-                    osc.frequency.exponentialRampToValueAtTime(650, now + 0.1);
+                    osc.frequency.setValueAtTime(350, now);
+                    osc.frequency.exponentialRampToValueAtTime(700, now + 0.08);
                     gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
                     osc.start(now);
-                    osc.stop(now + 0.1);
+                    osc.stop(now + 0.08);
                 } else if (type === 'crash') {
                     osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(200, now);
-                    osc.frequency.exponentialRampToValueAtTime(40, now + 0.4);
+                    osc.frequency.setValueAtTime(250, now);
+                    osc.frequency.exponentialRampToValueAtTime(30, now + 0.45);
+                    gain.gain.setValueAtTime(0.4, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.45);
+                    osc.start(now);
+                    osc.stop(now + 0.45);
+                } else if (type === 'win') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.setValueAtTime(554, now + 0.09);
+                    osc.frequency.setValueAtTime(659, now + 0.18);
+                    osc.frequency.setValueAtTime(880, now + 0.27);
                     gain.gain.setValueAtTime(0.35, now);
                     gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
                     osc.start(now);
                     osc.stop(now + 0.4);
-                } else if (type === 'win') {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(440, now);
-                    osc.frequency.setValueAtTime(554, now + 0.08);
-                    osc.frequency.setValueAtTime(659, now + 0.16);
-                    osc.frequency.setValueAtTime(880, now + 0.24);
-                    gain.gain.setValueAtTime(0.3, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
-                    osc.start(now);
-                    osc.stop(now + 0.35);
                 } else if (type === 'mine') {
                     osc.type = 'square';
-                    osc.frequency.setValueAtTime(140, now);
-                    osc.frequency.exponentialRampToValueAtTime(750, now + 0.12);
-                    gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+                    osc.frequency.setValueAtTime(160, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.1);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
                     osc.start(now);
-                    osc.stop(now + 0.12);
+                    osc.stop(now + 0.1);
                 }
             } catch(e) {}
         }
 
-        /* Canvas Графіка */
-        let canvas, ctx;
-        let roadScrollY = 0;
-
+        /*Canvas Рендеринг */
         window.addEventListener('load', () => {
             canvas = document.getElementById('gameCanvas');
             ctx = canvas.getContext('2d');
@@ -370,22 +414,50 @@
         function recalcMultipliers() {
             multipliers = [];
             const cfg = diffSettings[difficulty];
-            let val = cfg.base;
+            let val = cfg.baseMult;
             for (let i = 0; i < totalSteps; i++) {
                 multipliers.push(parseFloat(val.toFixed(2)));
-                val += cfg.inc * (1 + i * 0.12);
+                val += cfg.incMult * (1 + i * 0.15);
             }
         }
 
         function initCars() {
             cars = [];
-            for (let i = 1; i <= totalSteps; i++) {
-                cars.push({
-                    lane: i,
-                    x: Math.random() * 400,
-                    speed: (Math.random() * 2.5 + 2.0) * (i % 2 === 0 ? 1 : -1),
-                    color: i % 4 === 0 ? '#f43f5e' : (i % 4 === 1 ? '#06b6d4' : (i % 4 === 2 ? '#fbbf24' : '#a855f7'))
-                });
+            const cfg = diffSettings[difficulty];
+            const laneWidth = 70;
+            const startX = 140;
+
+            for (let lane = 1; lane <= totalSteps; lane++) {
+                const numCars = cfg.density;
+                const laneX = startX + (lane - 1) * laneWidth;
+                const isDown = lane % 2 === 0;
+
+                for (let c = 0; c < numCars; c++) {
+                    const speed = (Math.random() * (cfg.speedMax - cfg.speedMin) + cfg.speedMin) * (isDown ? 1 : -1);
+                    const typeRoll = Math.random();
+                    let carType = 'sedan';
+                    let color = '#06b6d4';
+
+                    if (typeRoll > 0.8) {
+                        carType = 'police';
+                        color = '#3b82f6';
+                    } else if (typeRoll > 0.5) {
+                        carType = 'sport';
+                        color = '#f43f5e';
+                    } else if (typeRoll > 0.3) {
+                        carType = 'truck';
+                        color = '#eab308';
+                    }
+
+                    cars.push({
+                        lane: lane,
+                        laneX: laneX,
+                        y: Math.random() * 600 - 100,
+                        speed: speed,
+                        type: carType,
+                        color: color
+                    });
+                }
             }
         }
 
@@ -402,81 +474,88 @@
             const w = canvas.width;
             const h = canvas.height;
 
-            const targetScroll = currentStep * 65;
-            roadScrollY += (targetScroll - roadScrollY) * 0.12;
+            // Плавна камера за куркою
+            const laneWidth = 70;
+            const targetCamX = Math.max(0, (currentStep * laneWidth) - w / 2 + 160);
+            cameraX += (targetCamX - cameraX) * 0.12;
 
             ctx.clearRect(0, 0, w, h);
 
-            // Обочина з травою
-            ctx.fillStyle = '#16a34a';
-            ctx.fillRect(0, 0, 75, h);
+            ctx.save();
+            ctx.translate(-cameraX, 0);
 
-            // Дерева на обочині
-            ctx.fillStyle = '#15803d';
-            for (let ty = -50; ty < h + 50; ty += 60) {
-                const adjustedY = ty + (roadScrollY % 60);
+            // Лівий тротуар (Старт)
+            ctx.fillStyle = '#334155';
+            ctx.fillRect(0, 0, 120, h);
+
+            // Плитка тротуару
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 2;
+            for (let y = 0; y < h; y += 40) {
                 ctx.beginPath();
-                ctx.arc(25, adjustedY, 14, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.moveTo(0, y); ctx.lineTo(120, y);
+                ctx.stroke();
             }
 
             // Бордюр
-            ctx.fillStyle = '#f59e0b';
-            ctx.fillRect(73, 0, 4, h);
+            ctx.fillStyle = '#fbbf24';
+            ctx.fillRect(116, 0, 8, h);
 
-            // Асфальт
+            // Дорога з вертикальними смугами
+            const startX = 140;
+            const roadWidth = totalSteps * laneWidth + 40;
             ctx.fillStyle = '#1e293b';
-            ctx.fillRect(77, 0, w - 77, h);
+            ctx.fillRect(124, 0, roadWidth, h);
 
-            const laneSpacing = 65;
-            const startY = h - 70 + roadScrollY;
+            // Вертикальні смуги руху та люки
+            for (let i = 1; i <= totalSteps; i++) {
+                const laneX = startX + (i - 1) * laneWidth;
 
-            // Смуги руху та Люки
-            for (let i = 0; i <= totalSteps + 1; i++) {
-                const laneY = startY - (i * laneSpacing);
+                // Пунктир між смугами
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+                ctx.setLineDash([16, 14]);
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(laneX + 35, 0);
+                ctx.lineTo(laneX + 35, h);
+                ctx.stroke();
+                ctx.setLineDash([]);
 
-                if (i > 0 && i <= totalSteps) {
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-                    ctx.setLineDash([16, 12]);
-                    ctx.lineWidth = 3;
-                    ctx.beginPath();
-                    ctx.moveTo(77, laneY + 30);
-                    ctx.lineTo(w, laneY + 30);
-                    ctx.stroke();
-                    ctx.setLineDash([]);
+                // Люк каналізації з множником
+                const manholeY = h / 2;
+                const isPassed = i <= currentStep;
 
-                    // Люк з множником
-                    const coverX = 180;
-                    const coverY = laneY + 15;
+                ctx.fillStyle = isPassed ? '#10b981' : '#475569';
+                ctx.beginPath();
+                ctx.arc(laneX + 35, manholeY, 26, 0, Math.PI * 2);
+                ctx.fill();
 
-                    ctx.fillStyle = i <= currentStep ? '#10b981' : '#334155';
-                    ctx.beginPath();
-                    ctx.arc(coverX, coverY, 24, 0, Math.PI * 2);
-                    ctx.fill();
+                ctx.strokeStyle = isPassed ? '#6ee7b7' : '#94a3b8';
+                ctx.lineWidth = 3.5;
+                ctx.beginPath();
+                ctx.arc(laneX + 35, manholeY, 22, 0, Math.PI * 2);
+                ctx.stroke();
 
-                    ctx.strokeStyle = i <= currentStep ? '#6ee7b7' : '#64748b';
-                    ctx.lineWidth = 3;
-                    ctx.beginPath();
-                    ctx.arc(coverX, coverY, 20, 0, Math.PI * 2);
-                    ctx.stroke();
-
-                    // Текст множника
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = '900 13px Inter, sans-serif';
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(`${multipliers[i-1]}x`, coverX, coverY);
-                }
+                // Текст множника на люку
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '900 13px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(`${multipliers[i-1]}x`, laneX + 35, manholeY);
             }
 
-            // Машини
-            cars.forEach(car => {
-                car.x += car.speed;
-                if (car.speed > 0 && car.x > w + 60) car.x = 77 - 60;
-                if (car.speed < 0 && car.x < 77 - 60) car.x = w + 60;
+            // Правий тротуар (Фініш)
+            const finishX = startX + totalSteps * laneWidth;
+            ctx.fillStyle = '#10b981';
+            ctx.fillRect(finishX, 0, 140, h);
 
-                const carY = startY - (car.lane * laneSpacing) + 5;
-                drawCartoonCar(car.x, carY, car.color, car.speed > 0);
+            // Трафік авто (Вертикальний рух)
+            cars.forEach(car => {
+                car.y += car.speed;
+                if (car.speed > 0 && car.y > h + 80) car.y = -80;
+                if (car.speed < 0 && car.y < -80) car.y = h + 80;
+
+                drawCartoonVehicle(car.laneX + 35, car.y, car.type, car.color, car.speed > 0);
             });
 
             // Частинки
@@ -489,40 +568,64 @@
                 ctx.globalAlpha = 1;
             });
 
-            // Курка
-            const chickenX = 38;
-            const chickenY = startY - (currentStep * laneSpacing) + 12;
+            // Курка (Переходить зліва направо)
+            let chickenX = 60; // Лівий тротуар
+            if (currentStep > 0) {
+                chickenX = startX + (currentStep - 1) * laneWidth + 35;
+            }
+            const chickenY = h / 2;
             drawCartoonChicken(chickenX, chickenY);
+
+            ctx.restore();
         }
 
-        function drawCartoonCar(x, y, color, facingRight) {
+        function drawCartoonVehicle(x, y, type, color, isDown) {
             ctx.save();
-            ctx.translate(x + 25, y + 12);
-            if (!facingRight) ctx.scale(-1, 1);
+            ctx.translate(x, y);
+            if (!isDown) ctx.scale(1, -1);
 
             // Тінь
-            ctx.fillStyle = 'rgba(0,0,0,0.4)';
+            ctx.fillStyle = 'rgba(0,0,0,0.35)';
             ctx.beginPath();
-            ctx.ellipse(0, 10, 24, 6, 0, 0, Math.PI * 2);
+            ctx.ellipse(0, 4, 18, 30, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Кузов
-            ctx.fillStyle = color;
-            ctx.beginPath();
-            ctx.roundRect(-22, -10, 44, 20, 8);
-            ctx.fill();
+            if (type === 'truck') {
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.roundRect(-18, -32, 36, 64, 6);
+                ctx.fill();
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(-14, -28, 28, 12);
+            } else if (type === 'police') {
+                ctx.fillStyle = '#0f172a';
+                ctx.beginPath();
+                ctx.roundRect(-16, -26, 32, 52, 8);
+                ctx.fill();
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(-14, -8, 28, 16);
+                // Мигалки
+                const flash = Math.sin(animTick * 12) > 0;
+                ctx.fillStyle = flash ? '#ef4444' : '#3b82f6';
+                ctx.fillRect(-10, -2, 8, 5);
+                ctx.fillStyle = flash ? '#3b82f6' : '#ef4444';
+                ctx.fillRect(2, -2, 8, 5);
+            } else {
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.roundRect(-15, -24, 30, 48, 8);
+                ctx.fill();
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.roundRect(-11, -10, 22, 18, 4);
+                ctx.fill();
+            }
 
-            // Кабіна
-            ctx.fillStyle = '#ffffff';
+            // Фари
+            ctx.fillStyle = '#fef08a';
             ctx.beginPath();
-            ctx.roundRect(-10, -18, 22, 12, 4);
-            ctx.fill();
-
-            // Колеса
-            ctx.fillStyle = '#0f172a';
-            ctx.beginPath();
-            ctx.arc(-12, 8, 5, 0, Math.PI * 2);
-            ctx.arc(12, 8, 5, 0, Math.PI * 2);
+            ctx.arc(-10, 22, 3.5, 0, Math.PI * 2);
+            ctx.arc(10, 22, 3.5, 0, Math.PI * 2);
             ctx.fill();
 
             ctx.restore();
@@ -530,7 +633,7 @@
 
         function drawCartoonChicken(x, y) {
             ctx.save();
-            const bounce = Math.sin(animTick * 6) * 4;
+            const bounce = Math.sin(animTick * 8) * 3;
             ctx.translate(x, y + bounce);
 
             // Тінь
@@ -561,7 +664,7 @@
             ctx.arc(4, -18, 4, 0, Math.PI * 2);
             ctx.fill();
 
-            // Дзьоб
+            // Дзьоб (дивиться вправо)
             ctx.fillStyle = '#f97316';
             ctx.beginPath();
             ctx.moveTo(8, -2);
@@ -580,13 +683,13 @@
         }
 
         function createExplosion(x, y, color) {
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 35; i++) {
                 particles.push({
                     x: x,
                     y: y,
-                    vx: (Math.random() - 0.5) * 10,
-                    vy: (Math.random() - 0.5) * 10,
-                    size: Math.random() * 5 + 2,
+                    vx: (Math.random() - 0.5) * 12,
+                    vy: (Math.random() - 0.5) * 12,
+                    size: Math.random() * 6 + 2,
                     color: color || '#f43f5e',
                     life: 1.0,
                     decay: Math.random() * 0.04 + 0.02
@@ -650,12 +753,13 @@
             if (gameState === 'PLAYING') return;
             difficulty = val;
             recalcMultipliers();
+            initCars();
         }
 
-        /* Кнопки дій */
+        /* Кнопки дій гри */
         function startGame() {
             if (bet <= 0) {
-                alert('Вкажіть суму ставки!');
+                alert('Укажіть правильну суму ставки!');
                 return;
             }
 
@@ -671,7 +775,6 @@
             updateUI();
             playSound('step');
 
-            // Перемикаємо кнопки
             document.getElementById('startGameBtn').classList.add('hidden');
             document.getElementById('stepBtn').classList.remove('hidden');
             document.getElementById('cashoutButton').classList.add('hidden');
@@ -699,9 +802,14 @@
             } else {
                 playSound('crash');
                 triggerScreenShake();
-                createExplosion(180, canvas.height - 70 - (currentStep * 65), '#f43f5e');
+                
+                const startX = 140;
+                const laneWidth = 70;
+                const chickenX = startX + currentStep * laneWidth + 35;
+                createExplosion(chickenX, canvas.height / 2, '#f43f5e');
+
                 gameState = 'GAMEOVER';
-                showResultOverlay(false, `Курка потрапила під колеса на смузі №${currentStep + 1}! Втрачено $${formatNumber(bet)}.`);
+                showResultOverlay(false, `Курку збило авто на смузі №${currentStep + 1}! Втрачено $${formatNumber(bet)}.`);
                 updateUI();
                 resetButtons();
 
@@ -720,8 +828,13 @@
             gameState = 'IDLE';
 
             playSound('win');
-            createExplosion(180, canvas.height - 70 - (currentStep * 65), '#10b981');
-            showResultOverlay(true, `Ви пройшли ${currentStep} кроків і виграли $${formatNumber(winVal)} (${mult}x)!`);
+            
+            const startX = 140;
+            const laneWidth = 70;
+            const chickenX = startX + (currentStep - 1) * laneWidth + 35;
+            createExplosion(chickenX, canvas.height / 2, '#10b981');
+
+            showResultOverlay(true, `Ви успішно перейшли ${currentStep} смуг та забрали $${formatNumber(winVal)} (${mult}x)!`);
             updateUI();
             resetButtons();
         }
@@ -735,7 +848,7 @@
         function triggerScreenShake() {
             const wrapper = document.getElementById('gameWrapper');
             wrapper.classList.add('shake');
-            setTimeout(() => wrapper.classList.remove('shake'), 400);
+            setTimeout(() => wrapper.classList.remove('shake'), 450);
         }
 
         function showResultOverlay(isWin, desc) {
@@ -780,13 +893,13 @@
         }
 
         function startLiveTicker() {
-            const users = ['Гравець_UA', 'MegaWinner', 'ChickenKing', 'LuckyBooster', 'MasterBet', 'TurboGamer'];
+            const users = ['Гравець_UA', 'MegaWinner', 'ChickenKing', 'LuckyBooster', 'MasterBet', 'TurboGamer', 'SpeedyChicken'];
             setInterval(() => {
                 const randomUser = users[Math.floor(Math.random() * users.length)];
-                const randomWin = (Math.random() * 95000 + 5000).toFixed(0);
+                const randomWin = (Math.random() * 450000 + 10000).toFixed(0);
                 document.getElementById('liveTicker').innerHTML = `<span class="text-slate-400">Останній виграш:</span> ${randomUser} <span class="text-emerald-400 font-bold">+$${formatNumber(randomWin)}</span>`;
-                document.getElementById('onlineCounter').innerText = formatNumber(Math.floor(12000 + Math.random() * 800));
-            }, 3500);
+                document.getElementById('onlineCounter').innerText = formatNumber(Math.floor(13500 + Math.random() * 900));
+            }, 3200);
         }
 
         /* Міні-гра "Золота Шахта" */
@@ -810,7 +923,7 @@
 
             const success = Math.random() < 0.65;
             if (success) {
-                const reward = Math.floor(Math.random() * 200000000 + 50000000);
+                const reward = 5000000;
                 balance += reward;
                 playSound('mine');
                 feedback.className = "text-xs font-bold text-emerald-400 animate-pulse";
@@ -818,7 +931,7 @@
             } else {
                 playSound('crash');
                 feedback.className = "text-xs font-bold text-rose-400";
-                feedback.innerText = 'ТВЕРДИЙ ГРАНІТ! Спробуйте ще раз!';
+                feedback.innerText = 'УДАР МИМО! Гранітна порода. Спробуйте ще!';
             }
 
             updateUI();
